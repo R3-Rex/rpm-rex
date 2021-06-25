@@ -75,7 +75,7 @@ function explorePath(path)
     for i,v in pairs(fileList) do
         local file = path..v
         if fs.isDir(file) then
-            if not fs.isReadOnly(file) then
+            if not fs.isReadOnly(file) and not string.find(v, "rsync") then
                 explorePath(file.."/")
             end
         else
