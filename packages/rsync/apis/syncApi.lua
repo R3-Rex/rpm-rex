@@ -1,4 +1,5 @@
-os.loadAPI("rsync/commApi.lua")
+os.loadAPI("rsync/apis/commApi.lua")
+
 
 path = "rsync/config/.sync-settings"
 t = {}
