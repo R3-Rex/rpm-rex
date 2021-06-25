@@ -69,17 +69,21 @@ function sendFile(filename)
     api.sendString(f.readAll())
 end
 
+local blacklist = {[".rpm"] = true, ["rpm.lua"] = true, ["rsync/rsync.lua"] = true, ["rsync/syncControl.lua"] = true, ["rsync/config/.sync-settings"] = true, ["rsync/apis/commApi.lua"] = true, ["rsync/apis/syncApi.lua"] = true}
 local allFiles = {}
 function explorePath(path)
     local fileList = fs.list(path)
     for i,v in pairs(fileList) do
         local file = path..v
         if fs.isDir(file) then
-            if not fs.isReadOnly(file) and not string.find(v, "rsync") then
+            if not fs.isReadOnly(file) and not blacklist[v] then
                 explorePath(file.."/")
             end
         else
-            table.insert(allFiles, string.sub(file,2,#file))
+            local fileString = string.sub(file,2,#file)
+            if not blacklist[fileString] then
+                table.insert(allFiles, fileString)
+            end
         end
     end
 end
