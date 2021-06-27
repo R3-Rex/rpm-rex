@@ -28,7 +28,7 @@ function loadData()
         t["screen-scale"] = 0.5
         t["display"] = "right"
         t["screen-count"] = 1
-        screens[1] = generateScreen("Default", "black", colors.white)
+        screens[1] = generateScreen("Default", "black", "white")
         saveData()
         f = fs.open(path, "r")
     end
