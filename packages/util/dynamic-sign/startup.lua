@@ -43,9 +43,10 @@ term.redirect(peripheral.wrap(t["display"]))
 
 function drawScreen(index)
     local lsd = screens[index]
-    local w, h = term.getSize()
-    
     peripheral.wrap(t["display"]).setTextScale(lsd["screen-scale"])
+    sleep()
+    
+    local w, h = term.getSize()
 
     paintutils.drawFilledBox(1, 1, w, h, colors[lsd["background-color"]])
 
