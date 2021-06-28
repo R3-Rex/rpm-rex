@@ -1,11 +1,11 @@
 {
   display = "back",
-  [ "screen-scale" ] = 0.50000000000000,
   screens = {
     {
       [ "background-color" ] = "black",
       text = "Default",
       timer = 1,
+      [ "screen-scale" ] = 1,
       [ "text-color" ] = "white",
     },
   },

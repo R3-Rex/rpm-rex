@@ -12,6 +12,7 @@ function generateScreen(text, bg, fg)
     sd["background-color"] = bg
     sd["text-color"] = fg
     sd["timer"] = 1
+    sd["screen-scale"] = 1
     return sd
 end
 function saveData()
@@ -24,9 +25,8 @@ function loadData()
     f = nil
     if fs.exists(path) then
         f = fs.open(path, "r")
-    else
-        t["screen-scale"] = 0.5
-        t["display"] = "right"
+    elseif
+        t["display"] = "back"
         t["screen-count"] = 1
         screens[1] = generateScreen("Default", "black", "white")
         saveData()
@@ -39,16 +39,19 @@ end
 loadData()
 
 term.redirect(peripheral.wrap(t["display"]))
-peripheral.wrap(t["display"]).setTextScale(t["screen-scale"])
+
 
 function drawScreen(index)
     local lsd = screens[index]
     local w, h = term.getSize()
     
+    peripheral.wrap(t["display"]).setTextScale(lsd["screen-scale"])
+
     paintutils.drawFilledBox(1, 1, w, h, colors[lsd["background-color"]])
 
     term.setBackgroundColor(colors[lsd["background-color"]])
     term.setTextColor(colors[lsd["text-color"]])
+    
 
     term.setCursorPos(math.ceil(math.ceil(w/2) - math.floor(#lsd["text"] / 2)) + 1, math.ceil(h / 2))
     term.write(lsd["text"])
