@@ -45,7 +45,7 @@ function drawScreen(index)
     local lsd = screens[index]
     peripheral.wrap(t["display"]).setTextScale(lsd["screen-scale"])
     sleep()
-    
+
     local w, h = term.getSize()
 
     paintutils.drawFilledBox(1, 1, w, h, colors[lsd["background-color"]])
@@ -53,8 +53,9 @@ function drawScreen(index)
     term.setBackgroundColor(colors[lsd["background-color"]])
     term.setTextColor(colors[lsd["text-color"]])
     
+    local cr = math.ceil((w - #lsd["text"]) / 2) + 1
 
-    term.setCursorPos(math.ceil(math.ceil(w/2) - math.floor(#lsd["text"] / 2)) + 1, math.ceil(h / 2))
+    term.setCursorPos(cr, math.ceil(h / 2))
     term.write(lsd["text"])
     return lsd["timer"]
 end
