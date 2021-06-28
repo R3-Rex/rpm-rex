@@ -29,7 +29,7 @@ function loadData()
         t["display"] = "back"
         t["screen-count"] = 1
         screens[1] = generateScreen("Default", "black", "white")
-        saveData()r
+        saveData()
         f = fs.open(path, "r")
     end
    
