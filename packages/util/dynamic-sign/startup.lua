@@ -25,7 +25,7 @@ function loadData()
     f = nil
     if fs.exists(path) then
         f = fs.open(path, "r")
-    elseif
+    else
         t["display"] = "back"
         t["screen-count"] = 1
         screens[1] = generateScreen("Default", "black", "white")
