@@ -50,7 +50,7 @@ function drawScreen(index)
     term.setBackgroundColor(colors[lsd["background-color"]])
     term.setTextColor(colors[lsd["text-color"]])
 
-    term.setCursorPos(math.ceil(math.ceil(w/2) - math.floor(#lsd["text"] / 2)), math.ceil(h / 2))
+    term.setCursorPos(math.ceil(math.ceil(w/2) - math.floor(#lsd["text"] / 2)) + 1, math.ceil(h / 2))
     term.write(lsd["text"])
     return lsd["timer"]
 end
