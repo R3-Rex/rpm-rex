@@ -56,17 +56,27 @@ function setFieldVisual(data, default)
 end
 setupData = {}
 currentColor = 0
-colors = {"white", "orange", "magenta", "lightBlue", "yellow", "lime", "pink", "gray", "lightGray", "cyan", "purple", "blue", "brown", "green", "red", "black"}
+stringColors = {"white", "orange", "magenta", "lightBlue", "yellow", "lime", "pink", "gray", "lightGray", "cyan", "purple", "blue", "brown", "green", "red", "black"}
 function validateField(value, type)
     if type == "s" then
         return value
     end
+    if type == "i" then
+        local filter = ""
+        local filterValue = ""
+        for i, v in pairs(value) do
+            if string.find(filter:lower(), v:lower()) then
+                filterValue = filterValue .. v
+            end
+        end
+        return tonumber(filterValue)
+    end
     if type == "c" then
         currentColor = currentColor + 1
-        if currentColor > #colors then
+        if currentColor > #stringColors then
             currentColor = 1
         end
-        return colors[currentColor]
+        return stringColors[currentColor]
     end
 end
 function askField(index)
@@ -113,8 +123,10 @@ function askField(index)
             setFieldVisual(currentValue)
         end
     end
-    setupData[field["variable"], currentValue]
+    setupData[field["variable"]] = currentValue
 end
 loadData()
 
 askField(1)
+askField(2)
+askField(3)
