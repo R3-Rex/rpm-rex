@@ -62,7 +62,8 @@ function filterString(value, filter)
     local filter = ""
     local filterValue = ""
     for i = 1, value:len() do
-        local v = value:sub(i,i)
+        local v = string.sub(value, i,i)
+        v = v .. ""
         if string.find(filter, v) then
             filterValue = filterValue .. v
         end
@@ -75,7 +76,7 @@ function validateField(value, type)
         return value
     end
     if type == "i" then
-        local filter = "1234567890-"
+        local filter = "0123456789-"
         local filterValue = filterString(value, filter)
         if filterValue:len() < 1 then
             filterValue = "0"
