@@ -59,10 +59,9 @@ setupData = {}
 currentColor = 0
 stringColors = {"white", "orange", "magenta", "lightBlue", "yellow", "lime", "pink", "gray", "lightGray", "cyan", "purple", "blue", "brown", "green", "red", "black"}
 function filterString(value, filter)
-    local filter = ""
     local filterValue = ""
     for i = 1, value:len() do
-        local v = string.sub(value, i,i)
+        local v = string.sub(value, i - 1,i)
         v = v .. ""
         print("Searching [" .. filter .. "] for [" .. v .. "]")
         if string.find(filter, v) then
