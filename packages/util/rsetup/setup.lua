@@ -27,7 +27,8 @@ function loadData()
     t = textutils.unserialize(f.readAll())
     screens = t["screens"]
 end
-function askField(index){
+
+function askField(index)
     local w, h = term.getSize()
 
     term.setBackgroundColor(colors.white)
@@ -38,7 +39,19 @@ function askField(index){
     term.setCursorPos(3 + #t["setup-title"] , 3)
     term.setTextColor(colors.lightGray)
     term.write(t["setup-path"])
-}
+
+    field = fields[index]
+
+    term.setBackgroundColor(colors.black)
+    
+    term.setTextColor(colors.white)
+    term.setCursorPos(2, 5)
+    term.write(field["title"])
+
+    term.setCursorPos(2, 7)
+    term.setTextColor(colors.lightGray)
+    term.write(field["description"])
+end
 loadData()
 
 askField(1)
