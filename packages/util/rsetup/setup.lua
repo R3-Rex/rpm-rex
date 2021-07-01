@@ -83,7 +83,7 @@ function validateField(value, type)
         return filterValue
     end
     if type == "ls" then
-        local filter = "abcdefghijklmnopqrstuvwxyz" .. "abcdefghijklmnopqrstuvwxyz":upper()
+        local filter = "abcdefghijklmnopqrstuvwxyz" .. ("abcdefghijklmnopqrstuvwxyz"):upper()
         local filterValue = filterString(value, filter)
         return filterValue
     end
