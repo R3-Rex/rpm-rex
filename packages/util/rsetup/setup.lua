@@ -1,4 +1,4 @@
-path = ".setup-data"
+path = "rsetup/.setup-data"
 t = {}
 fields = {}
 function saveData()
@@ -20,6 +20,18 @@ function loadData()
         fields[1]["type"] = "s"
         fields[1]["variable"] = "default-string"
         fields[1]["default-value"] = "Enter String Here"
+        fields[2] = {}
+        fields[2]["title"] = "Color"
+        fields[2]["description"] = "A color"
+        fields[2]["type"] = "c"
+        fields[2]["variable"] = "default-color"
+        fields[2]["default-value"] = "white"
+        fields[3] = {}
+        fields[3]["title"] = "Int Number"
+        fields[3]["description"] = "A int number"
+        fields[3]["type"] = "i"
+        fields[3]["variable"] = "default-int"
+        fields[3]["default-value"] = "1"
         saveData()
         f = fs.open(path, "r")
     end
@@ -27,8 +39,38 @@ function loadData()
     t = textutils.unserialize(f.readAll())
     screens = t["screens"]
 end
+function setFieldVisual(data, default)
+    local w, h = term.getSize()
 
+    term.setBackgroundColor(colors.lightGray)
+    term.setTextColor(colors.white)
+
+    paintutils.drawFilledBox(2, 9, w-1, 9)
+    
+    if default then
+        term.setTextColor(colors.gray)
+    end
+
+    term.setCursorPos(2, 9)
+    term.write(data)
+end
+setupData = {}
+currentColor = 0
+colors = {"white", "orange", "magenta", "lightBlue", "yellow", "lime", "pink", "gray", "lightGray", "cyan", "purple", "blue", "brown", "green", "red", "black"}
+function validateField(value, type)
+    if type == "s" then
+        return value
+    end
+    if type == "c" then
+        currentColor = currentColor + 1
+        if currentColor > #colors then
+            currentColor = 1
+        end
+        return colors[currentColor]
+    end
+end
 function askField(index)
+    term.clear()
     local w, h = term.getSize()
 
     term.setBackgroundColor(colors.white)
@@ -36,14 +78,14 @@ function askField(index)
     paintutils.drawFilledBox(1, 1, w, 3)
     term.setCursorPos(2, 2)
     term.write(t["setup-title"])
-    term.setCursorPos(3 + #t["setup-title"] , 3)
+    term.setCursorPos(3 + #t["setup-title"] , 2)
     term.setTextColor(colors.lightGray)
     term.write(t["setup-path"])
 
-    field = fields[index]
+    local field = fields[index]
 
     term.setBackgroundColor(colors.black)
-    
+
     term.setTextColor(colors.white)
     term.setCursorPos(2, 5)
     term.write(field["title"])
@@ -51,6 +93,27 @@ function askField(index)
     term.setCursorPos(2, 7)
     term.setTextColor(colors.lightGray)
     term.write(field["description"])
+
+    local currentValue = field["default-value"]
+    setFieldVisual(currentValue, true)
+    
+    while true do
+        --Scan for inputs here
+        local e, key, isHeld = os.pullEvent()
+        if e == "key" then
+            if key == keys.backspace then
+                currentValue = string.sub(currentValue, 0, math.max(#currentValue-1, 0))
+                setFieldVisual(currentValue)
+            elseif key == keys.enter then
+                break
+            end
+        elseif e == "char" then
+            currentValue = currentValue .. key
+            currentValue = validateField(currentValue, field["type"])
+            setFieldVisual(currentValue)
+        end
+    end
+    setupData[field["variable"], currentValue]
 end
 loadData()
 

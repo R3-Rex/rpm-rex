@@ -1,0 +1,7 @@
+RSETUP DOCS
+-------------------
+
+FIELD TYPES
+s - string
+c - color
+us - username-string

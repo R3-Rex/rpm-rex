@@ -1,1 +1,2 @@
-setup.lua > setup.lua
+setup.lua > rsetup/setup.lua
+docs.txt > rsetup/docs.txt
