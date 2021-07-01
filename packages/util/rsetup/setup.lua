@@ -62,11 +62,12 @@ function filterString(value, filter)
     local filter = ""
     local filterValue = ""
     for i = 1, value:len() do
-        local v = value[ i ]
-        if string.find(filter:lower(), v:lower()) then
+        local v = value:sub(i,i)
+        if string.find(filter, v) then
             filterValue = filterValue .. v
         end
     end
+    
     return filterValue
 end
 function validateField(value, type)
@@ -75,7 +76,11 @@ function validateField(value, type)
     end
     if type == "i" then
         local filter = "1234567890-"
-        return tonumber(filterString(value, filter))
+        local filterValue = filterString(value, filter)
+        if filterValue:len() < 1 then
+            filterValue = "0"
+        end
+        return filterValue
     end
     if type == "c" then
         currentColor = currentColor + 1
