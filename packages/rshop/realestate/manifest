@@ -1,0 +1,5 @@
+rsync.lua > rsync/rsync.lua
+apis/commApi.lua > rsync/apis/commApi.lua
+apis/syncApi.lua > rsync/apis/syncApi.lua
+syncControl.lua > rsync/syncControl.lua
+config/sync-settings.cfg > rsync/config/.sync-settings
