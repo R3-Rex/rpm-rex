@@ -37,6 +37,7 @@ function loadData()
     end
    
     t = textutils.unserialize(f.readAll())
+    fields = t["fields"]
     screens = t["screens"]
 end
 function setFieldVisual(data, default)
@@ -64,7 +65,8 @@ function validateField(value, type)
     if type == "i" then
         local filter = ""
         local filterValue = ""
-        for i, v in pairs(value) do
+        for i = 1, value:len() do
+            local v = value[ i ]
             if string.find(filter:lower(), v:lower()) then
                 filterValue = filterValue .. v
             end
@@ -80,6 +82,7 @@ function validateField(value, type)
     end
 end
 function askField(index)
+    term.setBackgroundColor(colors.black)
     term.clear()
     local w, h = term.getSize()
 
@@ -116,6 +119,9 @@ function askField(index)
                 setFieldVisual(currentValue)
             elseif key == keys.enter then
                 break
+            elseif type == "c" then
+                currentValue = validateField(currentValue, field["type"])
+                setFieldVisual(currentValue)
             end
         elseif e == "char" then
             currentValue = currentValue .. key
