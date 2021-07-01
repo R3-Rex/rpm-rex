@@ -1,4 +1,4 @@
-path = "rsetup/.setup-data"
+path = ".setup-data"
 t = {}
 fields = {}
 function saveData()
@@ -20,18 +20,6 @@ function loadData()
         fields[1]["type"] = "s"
         fields[1]["variable"] = "default-string"
         fields[1]["default-value"] = "Enter String Here"
-        fields[2] = {}
-        fields[2]["title"] = "Color"
-        fields[2]["description"] = "A color"
-        fields[2]["type"] = "c"
-        fields[2]["variable"] = "default-color"
-        fields[2]["default-value"] = "white"
-        fields[3] = {}
-        fields[3]["title"] = "Int Number"
-        fields[3]["description"] = "A int number"
-        fields[3]["type"] = "i"
-        fields[3]["variable"] = "default-int"
-        fields[3]["default-value"] = "1"
         saveData()
         f = fs.open(path, "r")
     end
@@ -62,13 +50,10 @@ function filterString(value, filter)
     local filterValue = ""
     for i = 1, value:len() do
         local v = string.sub(value, i,i)
-        v = v .. ""
-        print("Searching [" .. filter .. "] for [" .. v .. "]")
         if string.find(filter, v) then
             filterValue = filterValue .. v
         end
     end
-    
     return filterValue
 end
 function validateField(value, type)
@@ -76,11 +61,30 @@ function validateField(value, type)
         return value
     end
     if type == "i" then
-        local filter = "0123456789-"
+        local filter = "0123456789"
         local filterValue = filterString(value, filter)
         if filterValue:len() < 1 then
             filterValue = "0"
         end
+        if string.sub(value, 1,1) == "-" then
+            filterValue = "-" .. filterValue
+        end
+        return filterValue
+    end
+    if type == "f" then
+        local filter = "0123456789."
+        local filterValue = filterString(value, filter)
+        if filterValue:len() < 1 then
+            filterValue = "0"
+        end
+        if string.sub(value, 1,1) == "-" then
+            filterValue = "-" .. filterValue
+        end
+        return filterValue
+    end
+    if type == "ls" then
+        local filter = "abcdefghijklmnopqrstuvwxyz" .. "abcdefghijklmnopqrstuvwxyz":upper()
+        local filterValue = filterString(value, filter)
         return filterValue
     end
     if type == "c" then
@@ -143,6 +147,10 @@ function askField(index)
 end
 loadData()
 
-askField(1)
-askField(2)
-askField(3)
+for i = 1, #fields do
+    askField(i)
+end
+
+f = fs.open(t["setup-path"], "w")
+f.write(textutils.serialise(setupData))
+f.close()

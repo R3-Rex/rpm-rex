@@ -1,8 +1,18 @@
 RSETUP DOCS
 -------------------
 
+SETUP
+To setup, add to project
+and create a default setup
+config, include all the
+values you might want, and
+add titles, and path for 
+where you want this config
+saved to.
+
 FIELD TYPES
 s - string
 c - color
 i - int
-us - username-string
+f - float
+ls - limited string (Only Allows letters)
