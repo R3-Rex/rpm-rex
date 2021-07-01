@@ -61,7 +61,7 @@ stringColors = {"white", "orange", "magenta", "lightBlue", "yellow", "lime", "pi
 function filterString(value, filter)
     local filterValue = ""
     for i = 1, value:len() do
-        local v = string.sub(value, i - 1,i)
+        local v = string.sub(value, i,i)
         v = v .. ""
         print("Searching [" .. filter .. "] for [" .. v .. "]")
         if string.find(filter, v) then
