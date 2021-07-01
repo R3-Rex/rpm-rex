@@ -58,20 +58,24 @@ end
 setupData = {}
 currentColor = 0
 stringColors = {"white", "orange", "magenta", "lightBlue", "yellow", "lime", "pink", "gray", "lightGray", "cyan", "purple", "blue", "brown", "green", "red", "black"}
+function filterString(value, filter)
+    local filter = ""
+    local filterValue = ""
+    for i = 1, value:len() do
+        local v = value[ i ]
+        if string.find(filter:lower(), v:lower()) then
+            filterValue = filterValue .. v
+        end
+    end
+    return filterValue
+end
 function validateField(value, type)
     if type == "s" then
         return value
     end
     if type == "i" then
-        local filter = ""
-        local filterValue = ""
-        for i = 1, value:len() do
-            local v = value[ i ]
-            if string.find(filter:lower(), v:lower()) then
-                filterValue = filterValue .. v
-            end
-        end
-        return tonumber(filterValue)
+        local filter = "1234567890-"
+        return tonumber(filterString(value, filter))
     end
     if type == "c" then
         currentColor = currentColor + 1
@@ -119,7 +123,7 @@ function askField(index)
                 setFieldVisual(currentValue)
             elseif key == keys.enter then
                 break
-            elseif type == "c" then
+            elseif field["type"] == "c" then
                 currentValue = validateField(currentValue, field["type"])
                 setFieldVisual(currentValue)
             end
