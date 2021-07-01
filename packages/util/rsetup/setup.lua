@@ -64,6 +64,7 @@ function filterString(value, filter)
     for i = 1, value:len() do
         local v = string.sub(value, i,i)
         v = v .. ""
+        print("Searching [" .. filter .. "] for [" .. v .. "]")
         if string.find(filter, v) then
             filterValue = filterValue .. v
         end
