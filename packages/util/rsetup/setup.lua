@@ -153,3 +153,6 @@ end
 f = fs.open(t["setup-path"], "w")
 f.write(textutils.serialise(setupData))
 f.close()
+
+local w, h = term.getSize()
+term.setCursorPos(1, h)
