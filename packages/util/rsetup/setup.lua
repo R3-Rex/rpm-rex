@@ -63,9 +63,6 @@ function validateField(value, type)
     if type == "i" then
         local filter = "0123456789"
         local filterValue = filterString(value, filter)
-        if filterValue:len() < 1 then
-            filterValue = "0"
-        end
         if string.sub(value, 1,1) == "-" then
             filterValue = "-" .. filterValue
         end
@@ -74,9 +71,6 @@ function validateField(value, type)
     if type == "f" then
         local filter = "0123456789."
         local filterValue = filterString(value, filter)
-        if filterValue:len() < 1 then
-            filterValue = "0"
-        end
         if string.sub(value, 1,1) == "-" then
             filterValue = "-" .. filterValue
         end
@@ -141,6 +135,11 @@ function askField(index)
             currentValue = currentValue .. key
             currentValue = validateField(currentValue, field["type"])
             setFieldVisual(currentValue)
+        end
+    end
+    if field["type"] == "i" or field["type"] == "f"  then
+        if currentValue:len() < 1 then
+            currentValue = "0"
         end
     end
     setupData[field["variable"]] = currentValue
