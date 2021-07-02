@@ -14,6 +14,7 @@ function loadData()
     else
         t["setup-title"] = "Project Setup"
         t["setup-path"] = ".project-config"
+        t["post-setup-program"] = "startup.lua"
         fields[1] = {}
         fields[1]["title"] = "String"
         fields[1]["description"] = "A empty default string"
@@ -156,3 +157,5 @@ f.close()
 
 local w, h = term.getSize()
 term.setCursorPos(1, h)
+
+shell.run(t["post-setup-program"])
