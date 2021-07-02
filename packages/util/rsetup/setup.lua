@@ -142,13 +142,21 @@ function askField(index)
         if currentValue:len() < 1 then
             currentValue = "0"
         end
+        currentValue = tonumber(currentValue)
+    end
     end
     setupData[field["variable"]] = currentValue
 end
 loadData()
-
+function runAsk(i)
+    if pcall(askField(i)) then
+        return
+    else
+        runAsk(i)
+    end
+end
 for i = 1, #fields do
-    askField(i)
+    runAsk(i)
 end
 
 f = fs.open(t["setup-path"], "w")
