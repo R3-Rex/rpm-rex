@@ -21,6 +21,32 @@ function testSlot()
     end
     return false
 end
+
+function doForward()
+    local forwardYet = false;
+    while not forwardYet do
+        if (turtle.forward()) then
+            forwardYet = true
+        else
+            if (turtle.detect()) then
+                turtle.dig()
+            end
+        end
+    end
+end
+
+function doUp()
+    local upYet = false;
+    while not forwardYet do
+        if (turtle.up()) then
+            upYet = true
+        else
+            if (turtle.detectUp()) then
+                turtle.digUp()
+            end
+        end
+    end
+end
 function findMinedBuildableBlock()
     local foundInt = -1
     if (testSlot()) then
@@ -56,15 +82,11 @@ function checkDownDig(floorless)
 end
 
 function checkLevel()
-    turtle.dig();
-    turtle.forward();
-    turtle.dig();
-    turtle.forward();
+    doForward()
+    doForward()
     turtle.turnLeft();
-    turtle.dig();
-    turtle.forward();
-    turtle.dig();
-    turtle.forward();
+    doForward()
+    doForward()
     turtle.turnLeft();
     turtle.turnLeft();
 
@@ -78,30 +100,27 @@ function checkLevel()
             floorless = checkDownDig(floorless);
             
             if i < 5 then
-                turtle.dig();
-                turtle.forward();
+                doForward()
             else
                 if (column < 5) then
                     if turnLeft then
                         turtle.turnLeft();
-                        turtle.dig();
-                        turtle.forward();
+                        doForward()
                         turtle.turnLeft();
                         turnLeft = false;
                     else
                         turtle.turnRight();
-                        turtle.dig();
-                        turtle.forward();
+                        doForward()
                         turtle.turnRight();
                         turnLeft = true;
                     end
                 else
                     turtle.turnLeft();
-                    turtle.forward();
-                    turtle.forward();
+                    doForward()
+                    doForward()
                     turtle.turnLeft();
-                    turtle.forward();
-                    turtle.forward();
+                    doForward()
+                    doForward()
                     turtle.turnRight();
                 end
             end
@@ -128,16 +147,12 @@ function buildDown()
 end
 
 function BuildLevel()
-    turtle.up();
-    turtle.dig();
-    turtle.forward();
-    turtle.dig();
-    turtle.forward();
+    doUp()
+    doForward()
+    doForward()
     turtle.turnLeft();
-    turtle.dig();
-    turtle.forward();
-    turtle.dig();
-    turtle.forward();
+    doForward()
+    doForward()
     turtle.turnLeft();
     turtle.turnLeft();
 
@@ -150,30 +165,27 @@ function BuildLevel()
             buildDown()
             
             if i < 5 then
-                turtle.dig();
-                turtle.forward();
+                doForward()
             else
                 if (column < 5) then
                     if turnLeft then
                         turtle.turnLeft();
-                        turtle.dig();
-                        turtle.forward();
+                        doForward()
                         turtle.turnLeft();
                         turnLeft = false;
                     else
                         turtle.turnRight();
-                        turtle.dig();
-                        turtle.forward();
+                        doForward()
                         turtle.turnRight();
                         turnLeft = true;
                     end
                 else
                     turtle.turnLeft();
-                    turtle.forward();
-                    turtle.forward();
+                    doForward()
+                    doForward()
                     turtle.turnLeft();
-                    turtle.forward();
-                    turtle.forward();
+                    doForward()
+                    doForward()
                     turtle.turnRight();
                 end
             end
@@ -210,19 +222,20 @@ end
 
 function turtleForwardStaircase()
     local notValid = true
+    local movedUp = false
     while notValid do
         if (turtle.detect()) then
-            turtle.digUp()
-            turtle.up()
+            doUp()
+            movedUp = true
         else
-            if not turtle.detectDown() then
+            if not turtle.detectDown() and not movedUp then
                 turtle.down()
             else
                 notValid = false
             end
         end
     end
-    turtle.forward()
+    doForward()
 end
 print("5x5 Base V1.3")
 print("----------------------")
