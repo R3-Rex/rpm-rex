@@ -69,7 +69,6 @@ end
 function checkDownDig(floorless)
     if turtle.detectDown() then
         exists, blockData = turtle.inspectDown();
-        print(blockData.name)
         if blockData.name ~= "minecraft:water" then
             turtle.digDown()
         else
@@ -237,7 +236,7 @@ function turtleForwardStaircase()
     end
     doForward()
 end
-print("5x5 Base V1.5")
+print("5x5 Base V1.6")
 print("----------------------")
 print("Starting 5x5 Base in 10 seconds")
 os.sleep(10)
