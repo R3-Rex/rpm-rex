@@ -34,7 +34,7 @@ function findMinedBuildableBlock()
         end
     end
     if (foundInt ~= -1) then
-        turtle.select(i)
+        turtle.select(foundInt)
         return true
     end
     return false
