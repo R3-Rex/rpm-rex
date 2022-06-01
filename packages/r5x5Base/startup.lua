@@ -216,6 +216,7 @@ function doBase()
             materialRequirements = layers * 25
             print("Layer " .. layers .. " is solid. Needs " .. materialRequirements .. " blocks.")
         end
+        findMinedBuildableBlock()
     end
     print("Finished mining to solid ground, Begining building.");
     for i = 1, layers do
@@ -240,7 +241,7 @@ function turtleForwardStaircase()
     end
     doForward()
 end
-print("5x5 Base V1.8")
+print("5x5 Base V1.9")
 print("----------------------")
 print("Starting 5x5 Base in 10 seconds")
 os.sleep(10)
