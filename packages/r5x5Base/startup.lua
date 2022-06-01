@@ -215,7 +215,11 @@ function turtleForwardStaircase()
             turtle.digUp()
             turtle.up()
         else
-            notValid = false
+            if not turtle.detectDown() then
+                turtle.down()
+            else
+                notValid = false
+            end
         end
     end
     turtle.forward()
