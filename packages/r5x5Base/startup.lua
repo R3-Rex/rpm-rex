@@ -184,7 +184,9 @@ end
 
 
 
-print("Starting")
+print("Starting 5x5 Base in 10 seconds")
+os.sleep(10)
+print("Starting now")
 findMinedBuildableBlock()
 local heightOffset = 0
 print("Building foundation 5x5")
