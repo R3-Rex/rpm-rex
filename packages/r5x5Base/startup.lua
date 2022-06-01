@@ -47,6 +47,18 @@ function doUp()
         end
     end
 end
+function doDown()
+    local downYet = false;
+    while not downYet do
+        if (turtle.down()) then
+            downYet = true
+        else
+            if (turtle.detectDown()) then
+                turtle.digDown()
+            end
+        end
+    end
+end
 function findMinedBuildableBlock()
     local foundInt = -1
     if (testSlot()) then
@@ -125,7 +137,7 @@ function checkLevel()
             end
         end
     end
-    turtle.down();
+    doDown()
     return floorless
 end
 
@@ -234,7 +246,7 @@ function turtleForwardStaircase()
             movedUp = true
         else
             if not turtle.detectDown() and not movedUp then
-                turtle.down()
+                doDown()
             else
                 notValid = false
             end
@@ -242,15 +254,28 @@ function turtleForwardStaircase()
     end
     doForward()
 end
-print("5x5 Base V1.10")
+print("5x5 Base V1.11")
 print("----------------------")
 print("Starting 5x5 Base in 10 seconds")
 os.sleep(10)
 while true do
+    local nextArea = false
+    while not nextArea do
+        exists, blockData = turtle.inspectDown();
+        if (exists) then
+            if (blockData.name == "minecraft:packed_ice") then
+                nextArea = false
+                turtleForwardStaircase()
+                turtleForwardStaircase()
+                turtleForwardStaircase()
+                turtleForwardStaircase()
+                turtleForwardStaircase()
+            else
+                nextArea = true
+            end
+        else
+            nextArea = true
+        end
+    end
     doBase()
-    turtleForwardStaircase()
-    turtleForwardStaircase()
-    turtleForwardStaircase()
-    turtleForwardStaircase()
-    turtleForwardStaircase()
 end
