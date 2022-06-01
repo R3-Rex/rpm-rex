@@ -1,5 +1,6 @@
 args = {...}
 
+local topMaterial = "minecraft:packed_ice"
 local validList = {"minecraft:dirt", "minecraft:gravel", "minecraft:sand", "minecraft:cobblestone", "minecraft:diorite", "minecraft:andesite", "minecraft:packed_ice", "minecraft:ice"}
 function testSlot()
     local data = turtle.getItemDetail()
@@ -16,6 +17,21 @@ function testSlot()
             else
                 print("Throwing " .. data.name)
                 turtle.dropDown(data.count)
+            end
+        end
+    end
+    return false
+end
+
+function testIce()
+    local data = turtle.getItemDetail()
+    if (data ~= nil) then
+        if data.count > 0 then
+            local found = false
+            for i, v in pairs(validList) do
+                if (topMaterial == data.name) then
+                    return true
+                end
             end
         end
     end
@@ -67,6 +83,25 @@ function findMinedBuildableBlock()
         for i=1,16 do
             turtle.select(i);
             if (testSlot()) then
+                foundInt = i
+            end
+        end
+    end
+    if (foundInt ~= -1) then
+        turtle.select(foundInt)
+        return true
+    end
+    return false
+end
+
+function findPackedIce()
+    local foundInt = -1
+    if (testIce()) then
+        return true
+    else
+        for i=1,16 do
+            turtle.select(i);
+            if (testIce()) then
                 foundInt = i
             end
         end
@@ -141,11 +176,15 @@ function checkLevel()
     return floorless
 end
 
-function buildDown()
+function buildDown(isTop)
     local found = false
     local warned = false
     while not found do
-        if (findMinedBuildableBlock()) then
+        local findMinable = findMinedBuildableBlock()
+        if (isTop) then
+            findMinable = findPackedIce()
+        end
+        if (findMinable) then
             found = true
         else
             if not warned then
@@ -157,7 +196,7 @@ function buildDown()
     turtle.placeDown()
 end
 
-function BuildLevel()
+function BuildLevel(isTop)
     doUp()
     doForward()
     doForward()
@@ -173,7 +212,7 @@ function BuildLevel()
     while (column < 5) do
         column = column + 1;
         for i=1, 5 do
-            buildDown()
+            buildDown(isTop)
             
             if i < 5 then
                 doForward()
@@ -233,7 +272,11 @@ function doBase()
     end
     print("Finished mining to solid ground, Begining building.");
     for i = 1, layers do
-        BuildLevel()
+        local isTop = false
+        if i == layers then
+            isTop = true
+        end
+        BuildLevel(isTop)
     end
 end
 
@@ -254,7 +297,7 @@ function turtleForwardStaircase()
     end
     doForward()
 end
-print("5x5 Base V1.11")
+print("5x5 Base V1.12")
 print("----------------------")
 print("Starting 5x5 Base in 10 seconds")
 os.sleep(10)
@@ -263,7 +306,7 @@ while true do
     while not nextArea do
         exists, blockData = turtle.inspectDown();
         if (exists) then
-            if (blockData.name == "minecraft:packed_ice") then
+            if (blockData.name == topMaterial) then
                 nextArea = false
                 turtleForwardStaircase()
                 turtleForwardStaircase()
