@@ -212,7 +212,14 @@ function BuildLevel(isTop)
     while (column < 5) do
         column = column + 1;
         for i=1, 5 do
-            buildDown(isTop)
+            local isTopCurrent = isTop
+            if (column == 1 or column == 5) then
+                isTopCurrent = true
+            end
+            if (i == 1 or i == 5) then
+                isTopCurrent = true
+            end
+            buildDown(isTopCurrent)
             
             if i < 5 then
                 doForward()
@@ -297,7 +304,7 @@ function turtleForwardStaircase()
     end
     doForward()
 end
-print("5x5 Base V1.12")
+print("5x5 Base V1.13")
 print("----------------------")
 print("Starting 5x5 Base in 10 seconds")
 os.sleep(10)
