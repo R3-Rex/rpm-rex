@@ -1,6 +1,6 @@
 args = {...}
 
-local validList = {"minecraft:dirt", "minecraft:gravel", "minecraft:sand", "minecraft:cobblestone", "minecraft:diorite", "minecraft:andesite"}
+local validList = {"minecraft:dirt", "minecraft:gravel", "minecraft:sand", "minecraft:cobblestone", "minecraft:diorite", "minecraft:andesite", "minecraft:packed_ice", "minecraft:ice"}
 function testSlot()
     local data = turtle.getItemDetail()
     if (data ~= nil) then
