@@ -201,6 +201,10 @@ function doBase()
     local foundBottom = false;
     local layers = 0;
 
+    if args[1] ~= nil then
+        layers = tonumber(args[1])
+        foundBottom = true
+    end
     local materialRequirements = 0;
     while not foundBottom do
         layers = layers + 1;
@@ -236,7 +240,7 @@ function turtleForwardStaircase()
     end
     doForward()
 end
-print("5x5 Base V1.7")
+print("5x5 Base V1.8")
 print("----------------------")
 print("Starting 5x5 Base in 10 seconds")
 os.sleep(10)
