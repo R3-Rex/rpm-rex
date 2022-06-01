@@ -37,7 +37,7 @@ end
 
 function doUp()
     local upYet = false;
-    while not forwardYet do
+    while not upYet do
         if (turtle.up()) then
             upYet = true
         else
@@ -236,7 +236,7 @@ function turtleForwardStaircase()
     end
     doForward()
 end
-print("5x5 Base V1.6")
+print("5x5 Base V1.7")
 print("----------------------")
 print("Starting 5x5 Base in 10 seconds")
 os.sleep(10)
