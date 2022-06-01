@@ -182,31 +182,52 @@ function BuildLevel()
     return floorless
 end
 
+function doBase()
+    print("Starting now")
+    findMinedBuildableBlock()
+    local heightOffset = 0
+    print("Building foundation 5x5")
+    local foundBottom = false;
+    local layers = 0;
 
+    local materialRequirements = 0;
+    while not foundBottom do
+        layers = layers + 1;
+        if checkLevel() then
+            print("Layer " .. layers .. " is not solid.")
+        else
+            foundBottom = true;
+            layers = layers + heightOffset
+            materialRequirements = layers * 25
+            print("Layer " .. layers .. " is solid. Needs " .. materialRequirements .. " blocks.")
+        end
+    end
+    print("Finished mining to solid ground, Begining building.");
+    for i = 1, layers do
+        BuildLevel()
+    end
+end
+
+function turtleForwardStaircase()
+    local notValid = true
+    while notValid do
+        if (turtle.detect()) then
+            turtle.digUp()
+            turtle.up()
+        else
+            notValid = false
+        end
+    end
+    turtle.forward()
+end
 print("5x5 Base V1.0")
 print("----------------------")
 print("Starting 5x5 Base in 10 seconds")
-os.sleep(10)
-print("Starting now")
-findMinedBuildableBlock()
-local heightOffset = 0
-print("Building foundation 5x5")
-local foundBottom = false;
-local layers = 0;
-
-local materialRequirements = 0;
-while not foundBottom do
-    layers = layers + 1;
-    if checkLevel() then
-        print("Layer " .. layers .. " is not solid.")
-    else
-        foundBottom = true;
-        layers = layers + heightOffset
-        materialRequirements = layers * 25
-        print("Layer " .. layers .. " is solid. Needs " .. materialRequirements .. " blocks.")
-    end
-end
-print("Finished mining to solid ground, Begining building.");
-for i = 1, layers do
-    BuildLevel()
+while true do
+    doBase()
+    turtleForwardStaircase()
+    turtleForwardStaircase()
+    turtleForwardStaircase()
+    turtleForwardStaircase()
+    turtleForwardStaircase()
 end
