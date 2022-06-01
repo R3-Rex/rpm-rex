@@ -224,7 +224,7 @@ function turtleForwardStaircase()
     end
     turtle.forward()
 end
-print("5x5 Base V1.0")
+print("5x5 Base V1.3")
 print("----------------------")
 print("Starting 5x5 Base in 10 seconds")
 while true do
