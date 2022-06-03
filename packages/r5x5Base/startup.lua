@@ -306,11 +306,12 @@ function turtleForwardStaircase()
     end
     doForward()
 end
+print("----------------------")
 print("5x5 Base V1.14")
 print("----------------------")
 print("Press enter to start.")
-local input = read("*")
 print("----------------------")
+local input = read("*")
 print("Starting 5x5 Base in 10 seconds")
 os.sleep(10)
 while true do
