@@ -1,5 +1,7 @@
 args = {...}
 
+shell.run("rpm update")
+
 local topMaterial = "minecraft:packed_ice"
 local validList = {"minecraft:dirt", "minecraft:gravel", "minecraft:sand", "minecraft:cobblestone", "minecraft:diorite", "minecraft:andesite", "minecraft:packed_ice", "minecraft:ice"}
 function testSlot()
@@ -304,7 +306,10 @@ function turtleForwardStaircase()
     end
     doForward()
 end
-print("5x5 Base V1.13")
+print("5x5 Base V1.14")
+print("----------------------")
+print("Press enter to start.")
+local input = read("*")
 print("----------------------")
 print("Starting 5x5 Base in 10 seconds")
 os.sleep(10)
