@@ -38,6 +38,7 @@ function turnLeft()
     elseif(t.direction == "west") then
         t.direction = "south"
     end
+    saveData()
 end
 function turnRight()
     local complete = false
@@ -55,6 +56,7 @@ function turnRight()
     elseif(t.direction == "west") then
         t.direction = "north"
     end
+    saveData()
 end
 
 function faceDirection(direction)
@@ -98,6 +100,7 @@ function faceDirection(direction)
             end
         end
     end
+    saveData()
 end
 
 local networkChannel = 23475
