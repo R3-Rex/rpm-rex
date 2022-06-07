@@ -35,14 +35,14 @@ function tryLoadAPI(path)
     return api
 end
 
-cPrint("Starting Drone v2.0")
+cPrint("Starting Drone v2.1")
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
+tryLoadAPI("util/commApi.lua")
 tryLoadAPI("util/turtleMotor.lua")
 tryLoadAPI("util/groundSkim.lua")
 tryLoadAPI("util/turtleBuild.lua")
-tryLoadAPI("util/commApi.lua")
 
 --_________________
 cPrint("Finished")
@@ -68,6 +68,7 @@ while inRange do
         commApi.SendRequest("GPS " .. x .. " " .. y .. " " .. z)
         commApi.SendRequest("SET")
     else
+        commApi.SendRequest("STATUS Finished.")
         inRange = false;
     end
 end
