@@ -33,7 +33,7 @@ function tryLoadAPI(path)
 end
 
 
-cPrint("Starting Drone v2.15", colors.lime)
+cPrint("Starting Drone v3.0", colors.lime)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
@@ -65,9 +65,30 @@ while inRange do
     if (x >= wallStart and x <= wallEnd) then
         turtleMotor.faceDirection("east")
         groundSkim.turtleForwardStaircase()
-        turtleBuild.buildDown()
+        x, y, z = turtleMotor.getCoords()
         commApi.SendRequest("GPS " .. x .. " " .. y .. " " .. z)
-        commApi.SendRequest("SET " .. z)
+        local wallHeight = tonumber(commApi.SendRequest("GET height")) + 1
+        local wallWanted = tonumber(commApi.SendRequest("GET wanted-height")) + 1
+        local offset = wallWanted - wallHeight
+        if (offset > 0) then
+            if (y < wallHeight)then
+                for i = 1, wallHeight - y do
+                    turtleMotor.turtleMoveUp()
+                end
+            elseif (y > wallHeight) then
+                for i = 1, y - wallHeight do
+                    if not turtle.detectDown() then
+                        turtleMotor.turtleMoveDown()
+                    end
+                end
+            end
+            while y < wallWanted do
+                x, y, z = turtleMotor.getCoords()
+                turtleBuild.buildDown()
+                commApi.SendRequest("SET " .. z)
+                turtleMotor.turtleMoveUp()
+            end
+        end
     else
         commApi.SendRequest("STATUS Finished.")
         inRange = false;
