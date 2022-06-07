@@ -141,6 +141,8 @@ function startupReload()
         print("Turtle is in a different position on startup!")
         print("Enter turtle direction (north, east, south, west)")
         t.direction = string.lower(read())
+        setTurtleGPS()
+        saveData()
     end
     faceDirection("north")
 end
