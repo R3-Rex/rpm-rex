@@ -80,7 +80,7 @@ function sendAltitudeToServer()
     getFromServer("set")
 end
 
-cPrint("Starting Drone v1.1")
+cPrint("Starting Drone v1.2")
 
 os.sleep(1)
 cPrint("Opening Rednet")
@@ -103,7 +103,6 @@ end
 cPrint("Finished")
 cPrint(dividerDashes)
 cPrint("Loading static data from server")
-local itemList = tryLoadFromServer("itemlist")
 local wallCoords = tryLoadFromServer("wallcoords")
 cPrint("Startup sequence complete!", colors.green)
 cPrint("")
