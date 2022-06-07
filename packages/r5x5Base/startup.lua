@@ -307,7 +307,7 @@ function turtleForwardStaircase()
     doForward()
 end
 print("----------------------")
-print("5x5 Base V1.15")
+print("5x5 Base V1.16")
 print("----------------------")
 print("Enter resume height and/or press enter to start.")
 print("----------------------")
