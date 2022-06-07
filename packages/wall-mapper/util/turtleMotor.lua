@@ -128,28 +128,6 @@ function setTurtleGPS()
     return changed
 end
 
-function setTurtleStatus(id, status)
-    getTurtleData(id)
-    t[id].status = status
-    saveData()
-end
-
-function startupReload()
-    loadData()
-    if (setTurtleGPS() > 1.5) then
-        t.x = 0
-        t.y = 0
-        t.z = 0
-        saveData()
-        print("Turtle is in a different position on startup!")
-        print("Enter turtle direction (north, east, south, west)")
-        t.direction = string.lower(read())
-        setTurtleGPS()
-        saveData()
-    end
-    faceDirection("north")
-end
-
 function turtleMoveForward()
     local complete = false
     while not complete do
@@ -236,6 +214,98 @@ function turtleMoveDown()
     t.y = t.y - 1
     commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
 end
+
+function setTurtleStatus(id, status)
+    getTurtleData(id)
+    t[id].status = status
+    saveData()
+end
+
+function testTurtleDirection()
+    local upCount = 0
+    local cleared = false;
+    local stillComplete = true
+    while not cleared and stillComplete do
+        if (turtle.detect()) then
+            if (not turtle.detectUp()) then
+                turtleMoveUp()
+                upCount = upCount + 1
+            else
+                stillComplete = false
+            end
+        else
+            cleared = true
+        end
+    end
+    if (cleared and stillComplete) then
+        local sx, sy, sz = gps.locate(5)
+        turtleMoveForward()
+        local fx, fy, fz = gps.locate(5)
+
+        local xOffset = fx - sx
+        local yOffset = fz - sz
+
+        if (xOffset > 0.5) then
+            t.direction = "east"
+        elseif(xOffset < -0.5) then
+            t.direction = "west"
+        elseif(yOffset > 0.5) then
+            t.direction = "south"
+        elseif(yOffset < -0.5) then
+            t.direction = "north"
+        end
+        --Return Back there
+        turnRight()
+        turnRight()
+        turtleMoveForward()
+        turnRight()
+        turnRight()
+    end
+    for i = 1, upCount do
+        turtleMoveDown()
+    end
+    if (not stillComplete) then
+        saveData()
+        return false
+    else
+        saveData()
+        return true
+    end
+end
+
+function startupReload()
+    loadData()
+    if (setTurtleGPS() > 1.5) then
+        t.x = 0
+        t.y = 0
+        t.z = 0
+        saveData()
+        print("Turtle is in a different position on startup!")
+        if (testTurtleDirection()) then
+            print("Found turtle direction by testing!", colors.green)
+        else
+            local valid = false
+            while not valid do
+                print("Enter turtle direction (north, east, south, west)")
+                t.direction = string.lower(read())
+                if (t.direction == "north") then
+                    valid = true
+                elseif(t.direction == "east") then
+                    valid = true
+                elseif(t.direction == "south") then
+                    valid = true
+                elseif(t.direction == "west") then
+                    valid = true
+                end
+            end
+        end
+        setTurtleGPS()
+        saveData()
+    end
+    faceDirection("north")
+end
+
+
 
 function turtleMoveDirection(direction)
     faceDirection(direction)
