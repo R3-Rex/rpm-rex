@@ -33,7 +33,7 @@ function tryLoadAPI(path)
 end
 
 
-cPrint("Starting Drone v3.6", colors.lime)
+cPrint("Starting Drone v3.7", colors.lime)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here

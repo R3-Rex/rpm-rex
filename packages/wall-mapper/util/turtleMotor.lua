@@ -2,6 +2,22 @@ path = "config/turtleInfo.cfg"
 t = {}
 local function saveData()
     local f = fs.open(path, "w")
+    local rescan = false;
+    if (t.x == nil) then
+        rescan = true
+    end
+    if (t.y == nil) then
+        rescan = true
+    end
+    if (t.z == ma) then
+        rescan = true
+    end
+    if (rescan) then
+        local x, y, z = gps.locate(5)
+        t.x = x
+        t.y = y
+        t.z = z
+    end
     t.x = math.round(t.x)
     t.y = math.round(t.y)
     t.z = math.round(t.z)
