@@ -35,7 +35,7 @@ function tryLoadAPI(path)
     return api
 end
 
-cPrint("Starting Drone v2.10")
+cPrint("Starting Drone v2.11")
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
@@ -55,8 +55,9 @@ cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
 turtleBuild.buildDown()
-commApi.SendRequest("GPS " .. x .. " " .. y .. " " .. z)
-commApi.SendRequest("SET " .. z)
+local tx, ty, tz = turtleMotor.getCoords()
+commApi.SendRequest("GPS " .. tx .. " " .. ty .. " " .. tz)
+commApi.SendRequest("SET " .. tz)
 
 local inRange = true
 while inRange do
