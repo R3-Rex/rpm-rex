@@ -2,3 +2,4 @@ invoke.lua > startup.lua
 util/groundSkim.lua > util/groundSkim.lua
 util/turtleBuild.lua > util/turtleBuild.lua
 util/turtleMotor.lua > util/turtleMotor.lua
+util/commApi.lua > util/commApi.lua

@@ -103,26 +103,6 @@ function faceDirection(direction)
     saveData()
 end
 
-local networkChannel = 23475
-local networkServerProtocol = networkChannel .. "-r-construction-server"
-local networkDroneProtocol = networkChannel .. "-r-construction-drone"
-local networkID = os.getComputerID()
-function getFromServer(message)
-    rednet.broadcast(message, networkServerProtocol)
-    local senderID, rmessage = rednet.receive(networkDroneProtocol, 15) 
-
-    if (senderID == null) then
-        term.setTextColor(colors.red)
-        print("Failed to recieve from server, protocol [" .. networkServerProtocol .. "], trying again.")
-        return sendToServer(message)
-    end
-    return rmessage;
-end
-
-function sendStatusToServer(status)
-    getFromServer("status " .. status)
-end
-
 
 
 function setTurtleGPS()
@@ -141,6 +121,7 @@ function setTurtleGPS()
         t.z = z
     end
     saveData()
+    commApi.SendRequest("GPS " .. x .. " " .. y .. " " .. z)
     return changed
 end
 
@@ -171,7 +152,7 @@ function turtleMoveForward()
             complete = true;
         else
             if (turtle.getFuelLevel() == 0) then
-                sendStatusToServer("Out of gas")
+                commApi.SendRequest("STATUS Out of gas")
                 while turtle.getFuelLevel() == 0 do
                     for i = 1, 16 do
                         turtle.select(i)
@@ -182,7 +163,7 @@ function turtleMoveForward()
                 if (turtle.detect()) then
                     turtle.dig()
                 else
-                    sendStatusToServer("Unknown error!")
+                    commApi.SendRequest("STATUS Unknown Error!")
                 end
             end
         end
@@ -196,7 +177,7 @@ function turtleMoveUp()
             complete = true;
         else
             if (turtle.getFuelLevel() == 0) then
-                sendStatusToServer("Out of gas")
+                commApi.SendRequest("STATUS Out of gas")
                 while turtle.getFuelLevel() == 0 do
                     for i = 1, 16 do
                         turtle.select(i)
@@ -207,7 +188,7 @@ function turtleMoveUp()
                 if (turtle.detectUp()) then
                     turtle.digUp()
                 else
-                    sendStatusToServer("Unknown error!")
+                    commApi.SendRequest("STATUS Unknown Error!")
                 end
             end
         end
@@ -221,7 +202,7 @@ function turtleMoveDown()
             complete = true;
         else
             if (turtle.getFuelLevel() == 0) then
-                sendStatusToServer("Out of gas")
+                commApi.SendRequest("STATUS Out of gas")
                 while turtle.getFuelLevel() == 0 do
                     for i = 1, 16 do
                         turtle.select(i)
@@ -232,7 +213,7 @@ function turtleMoveDown()
                 if (turtle.detectDown()) then
                     turtle.digDown()
                 else
-                    sendStatusToServer("Unknown error!")
+                    commApi.SendRequest("STATUS Unknown Error!")
                 end
             end
         end

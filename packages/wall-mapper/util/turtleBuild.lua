@@ -1,26 +1,5 @@
 local topMaterial = "minecraft:packed_ice"
 
-
-local networkChannel = 23475
-local networkServerProtocol = networkChannel .. "-r-construction-server"
-local networkDroneProtocol = networkChannel .. "-r-construction-drone"
-local networkID = os.getComputerID()
-function getFromServer(message)
-    rednet.broadcast(message, networkServerProtocol)
-    local senderID, rmessage = rednet.receive(networkDroneProtocol, 15) 
-
-    if (senderID == null) then
-        term.setTextColor(colors.red)
-        print("Failed to recieve from server, protocol [" .. networkServerProtocol .. "], trying again.")
-        return sendToServer(message)
-    end
-    return rmessage;
-end
-
-function sendStatusToServer(status)
-    getFromServer("status " .. status)
-end
-
 function testIce()
     local data = turtle.getItemDetail()
     if (data ~= nil) then
@@ -72,7 +51,7 @@ function buildDown()
             if ( builtDone())then
                 found = true
             else
-                sendStatusToServer("Needs Ice")
+                commApi.SendRequest("STATUS Out of blocks!")
                 while not found do
                     if (findPackedIce()) then
                         found = true
