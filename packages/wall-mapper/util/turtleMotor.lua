@@ -59,6 +59,10 @@ function turnRight()
     saveData()
 end
 
+function GetCoords()
+    return t.x, t.y, t.z
+end
+
 function faceDirection(direction)
     direction = string.lower(direction)
     if (t.direction ~= direction) then
@@ -121,7 +125,6 @@ function setTurtleGPS()
         t.z = z
     end
     saveData()
-    commApi.SendRequest("GPS " .. x .. " " .. y .. " " .. z)
     return changed
 end
 
@@ -170,7 +173,16 @@ function turtleMoveForward()
             end
         end
     end
-    setTurtleGPS()
+    if (t.direction == "north") then
+        t.y = t.y - 1
+    elseif(t.direction == "east") then
+        t.x = t.x + 1
+    elseif(t.direction == "south") then
+        t.y = t.y + 1
+    elseif(t.direction == "west") then
+        t.x = t.x - 1
+    end
+    commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
 end
 function turtleMoveUp()
     local complete = false
@@ -195,7 +207,8 @@ function turtleMoveUp()
             end
         end
     end
-    setTurtleGPS()
+    t.y = t.y + 1
+    commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
 end
 function turtleMoveDown()
     local complete = false
@@ -220,7 +233,8 @@ function turtleMoveDown()
             end
         end
     end
-    setTurtleGPS()
+    t.y = t.y - 1
+    commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
 end
 
 function turtleMoveDirection(direction)
