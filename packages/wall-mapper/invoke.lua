@@ -35,7 +35,7 @@ function tryLoadAPI(path)
     return api
 end
 
-cPrint("Starting Drone v2.9")
+cPrint("Starting Drone v2.10")
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
@@ -54,7 +54,9 @@ local wallEnd = tonumber(commApi.SendRequest("GET wall-end"))
 cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
-
+turtleBuild.buildDown()
+commApi.SendRequest("GPS " .. x .. " " .. y .. " " .. z)
+commApi.SendRequest("SET " .. z)
 
 local inRange = true
 while inRange do
