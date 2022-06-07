@@ -1,3 +1,4 @@
+shell.run("rpm update")
 term.clear()
 term.setCursorPos(1, 1)
 

@@ -2,18 +2,20 @@
 
 function turtleForwardStaircase()
     local notValid = true
-    local movedUp = false
     while notValid do
         if (turtle.detect()) then
             turtleMotor.turtleMoveUp()
-            movedUp = true
         else
-            if not turtle.detectDown() and not movedUp then
-                turtleMotor.turtleMoveDown()
-            else
-                notValid = false
-            end
+            notValid = false
         end
     end
     turtleMotor.turtleMoveForward()
+    notValid = true
+    while notValid do
+        if not turtle.detectDown() then
+            turtle.turtleMoveDown()
+        else
+            notValid = false
+        end
+    end
 end
