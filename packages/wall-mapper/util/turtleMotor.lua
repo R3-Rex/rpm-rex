@@ -2,6 +2,9 @@ path = "config/turtleInfo.cfg"
 t = {}
 local function saveData()
     local f = fs.open(path, "w")
+    t.x = math.round(t.x)
+    t.y = math.round(t.y)
+    t.z = math.round(t.z)
     f.write(textutils.serialise(t))
     f.close()
 end

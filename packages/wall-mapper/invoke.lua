@@ -33,7 +33,7 @@ function tryLoadAPI(path)
 end
 
 
-cPrint("Starting Drone v3.5", colors.lime)
+cPrint("Starting Drone v3.6", colors.lime)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
@@ -82,7 +82,7 @@ while inRange do
                     end
                 end
             end
-            while y < (wallWanted - 1) do
+            while math.round(y) < (wallWanted - 1) do
                 x, y, z = turtleMotor.getCoords()
                 turtleBuild.buildDown()
                 commApi.SendRequest("SET " .. z)
