@@ -126,6 +126,7 @@ while inRange do
         turtleMotor.faceDirection("east")
         groundSkim.turtleForwardStaircase()
         turtleBuild.buildDown()
+        sendGPSToServer()
         sendAltitudeToServer()
     else
         inRange = false;

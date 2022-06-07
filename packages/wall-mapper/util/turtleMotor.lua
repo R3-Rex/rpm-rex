@@ -138,7 +138,6 @@ function setTurtleGPS()
         t.z = z
     end
     saveData()
-    getFromServer("gps " .. x .. " " .. y .. " " .. z)
     return changed
 end
 
