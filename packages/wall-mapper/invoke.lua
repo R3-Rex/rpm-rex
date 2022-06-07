@@ -59,7 +59,7 @@ function ScanUpRow()
     end
 end
 
-cPrint("Starting Drone v3.11", colors.lime)
+cPrint("Starting Drone v3.12", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -76,6 +76,7 @@ cPrint(dividerDashes)
 cPrint("Loading static data from server")
 local wallStart = tonumber(commApi.SendRequest("GET wall-start"))
 local wallEnd = tonumber(commApi.SendRequest("GET wall-end"))
+shell.run("delete config/turtleInfo.cfg")
 cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
