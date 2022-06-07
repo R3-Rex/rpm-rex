@@ -18,9 +18,9 @@ local function saveData()
         t.y = y
         t.z = z
     end
-    t.x = math.round(t.x)
-    t.y = math.round(t.y)
-    t.z = math.round(t.z)
+    t.x = math.floor(t.x + 0.5)
+    t.y = math.floor(t.y + 0.5)
+    t.z = math.floor(t.z + 0.5)
     f.write(textutils.serialise(t))
     f.close()
 end
