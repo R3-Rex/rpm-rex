@@ -80,7 +80,7 @@ function sendAltitudeToServer()
     getFromServer("set")
 end
 
-cPrint("Starting Drone v1.0")
+cPrint("Starting Drone v1.1")
 
 os.sleep(1)
 cPrint("Opening Rednet")
