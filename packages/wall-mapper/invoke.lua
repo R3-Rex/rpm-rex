@@ -35,7 +35,7 @@ function tryLoadAPI(path)
     return api
 end
 
-cPrint("Starting Drone v2.8")
+cPrint("Starting Drone v2.9")
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
@@ -58,7 +58,7 @@ cPrint("")
 
 local inRange = true
 while inRange do
-    local x = turtleMotor.getCoords()
+    local x, y, z = turtleMotor.getCoords()
     print(x .. "," .. y.. "," .. z)
     if (x >= wallStart and x <= wallEnd) then
         turtleMotor.faceDirection("east")
