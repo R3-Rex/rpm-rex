@@ -1,4 +1,5 @@
-invoke.lua > startup.lua
+invoke.lua > invoke.lua
+startup.lua > startup.lua
 util/groundSkim.lua > util/groundSkim.lua
 util/turtleBuild.lua > util/turtleBuild.lua
 util/turtleMotor.lua > util/turtleMotor.lua

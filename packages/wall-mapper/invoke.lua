@@ -1,6 +1,3 @@
-shell.run("rpm update")
-term.clear()
-term.setCursorPos(1, 1)
 
 --For Graphical "Beauty"
 w, h = term.getSize()
@@ -35,7 +32,8 @@ function tryLoadAPI(path)
     return api
 end
 
-cPrint("Starting Drone v2.13")
+
+cPrint("Starting Drone v2.14", colors.lime)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
