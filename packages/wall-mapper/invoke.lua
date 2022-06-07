@@ -35,7 +35,7 @@ function tryLoadAPI(path)
     return api
 end
 
-cPrint("Starting Drone v2.12")
+cPrint("Starting Drone v2.13")
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
@@ -61,6 +61,7 @@ commApi.SendRequest("SET " .. tz)
 
 local inRange = true
 while inRange do
+    os.setComputerLabel("Rex Drone " .. os.getComputerID() .. " [" .. turtle.getFuelLevel() .. "]")
     local x, y, z = turtleMotor.getCoords()
     print(x .. "," .. y.. "," .. z)
     if (x >= wallStart and x <= wallEnd) then
