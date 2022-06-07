@@ -13,7 +13,7 @@ function turtleForwardStaircase()
     notValid = true
     while notValid do
         if not turtle.detectDown() then
-            turtle.turtleMoveDown()
+            turtleMotor.turtleMoveDown()
         else
             notValid = false
         end
