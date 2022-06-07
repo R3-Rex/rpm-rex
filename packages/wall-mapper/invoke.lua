@@ -72,18 +72,18 @@ while inRange do
         local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
         local offset = wallWanted - (wallHeight - 1)
         if (offset > 0) then
-            if (y < wallHeight)then
-                for i = 1, wallHeight - y do
+            if (math.floor(y + 0.5) < wallHeight)then
+                for i = 1, wallHeight - math.floor(y + 0.5) do
                     turtleMotor.turtleMoveUp()
                 end
-            elseif (y > wallHeight) then
-                for i = 1, y - wallHeight do
+            elseif (math.floor(y + 0.5) > wallHeight) then
+                for i = 1, math.floor(y + 0.5) - wallHeight do
                     if not turtle.detectDown() then
                         turtleMotor.turtleMoveDown()
                     end
                 end
             end
-            while math.round(y) < wallWanted do
+            while math.floor(y + 0.5) < wallWanted do
                 x, y, z = turtleMotor.getCoords()
                 turtleBuild.buildDown()
                 commApi.SendRequest("SET " .. z)
