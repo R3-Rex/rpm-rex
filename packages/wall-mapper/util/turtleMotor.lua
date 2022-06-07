@@ -111,17 +111,17 @@ end
 
 function setTurtleGPS()
     local x, y, z = gps.locate(5)
-    local changed = false
+    local changed = 0
     if (t.x ~= x) then
-        changed = true
+        changed = math.max(math.abs(t.x - x), changed)
         t.x = x
     end
     if (t.y ~= y) then
-        changed = true
+        changed = math.max(math.abs(t.y - y), changed)
         t.y = y
     end
     if (t.z ~= z) then
-        changed = true
+        changed = math.max(math.abs(t.z - z), changed)
         t.z = z
     end
     saveData()
@@ -136,7 +136,7 @@ end
 
 function startupReload()
     loadData()
-    if (setTurtleGPS()) then
+    if (setTurtleGPS() > 1.5) then
         t.x = 0
         t.y = 0
         t.z = 0
