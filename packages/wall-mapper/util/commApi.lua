@@ -21,15 +21,7 @@ loadData()
 
 function SendRequest(rawQuery)
     rawQuery = os.getComputerID() .. " " .. rawQuery
-    local query = ""
-    for i=1,#rawQuery do
-        local char = string.sub(rawQuery,i,i)
-        query = query .. string.byte(char)
-        if i ~= #rawQuery then
-            query = query .. "-"
-        end
-    end
-    
+    local query = string.gsub(rawQuery, " ", "?")
     local stream = http.get(t.address .. "/" .. query, nil)
     if (stream) then
         local message = stream.readAll();
