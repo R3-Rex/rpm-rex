@@ -35,7 +35,7 @@ function tryLoadAPI(path)
     return api
 end
 
-cPrint("Starting Drone v2.4")
+cPrint("Starting Drone v2.5")
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
@@ -64,7 +64,6 @@ while inRange do
         turtleMotor.faceDirection("east")
         groundSkim.turtleForwardStaircase()
         turtleBuild.buildDown()
-        sendGPSToServer()
         commApi.SendRequest("GPS " .. x .. " " .. y .. " " .. z)
         commApi.SendRequest("SET")
     else
