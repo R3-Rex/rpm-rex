@@ -150,6 +150,10 @@ end
 function startupReload()
     loadData()
     if (setTurtleGPS()) then
+        t.x = 0
+        t.y = 0
+        t.z = 0
+        saveData()
         print("Turtle is in a different position on startup!")
         print("Enter turtle direction (north, east, south, west)")
         t.direction = string.lower(read())
