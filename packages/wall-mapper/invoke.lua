@@ -35,7 +35,7 @@ function tryLoadAPI(path)
     return api
 end
 
-cPrint("Starting Drone v2.2")
+cPrint("Starting Drone v2.3")
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here

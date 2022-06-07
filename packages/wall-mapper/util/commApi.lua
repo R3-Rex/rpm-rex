@@ -32,5 +32,4 @@ function SendRequest(rawQuery)
     end
 end
 
-print(SendRequest("DEST message"))
 
