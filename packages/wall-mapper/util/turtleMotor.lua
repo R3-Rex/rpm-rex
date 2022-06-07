@@ -59,7 +59,7 @@ function turnRight()
     saveData()
 end
 
-function GetCoords()
+function getCoords()
     return t.x, t.y, t.z
 end
 
