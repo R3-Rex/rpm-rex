@@ -33,7 +33,7 @@ function tryLoadAPI(path)
 end
 
 
-cPrint("Starting Drone v3.7", colors.lime)
+cPrint("Starting Drone v3.8", colors.lime)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
@@ -69,7 +69,7 @@ while inRange do
         commApi.SendRequest("GPS " .. x .. " " .. y .. " " .. z)
         local wallHeight = tonumber(commApi.SendRequest("GET height")) + 1
         local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
-        local offset = wallWanted - wallHeight
+        local offset = wallWanted - (wallHeight - 1)
         if (offset > 0) then
             if (y < wallHeight)then
                 for i = 1, wallHeight - y do
@@ -82,7 +82,7 @@ while inRange do
                     end
                 end
             end
-            while math.round(y) < (wallWanted - 1) do
+            while math.round(y) < wallWanted do
                 x, y, z = turtleMotor.getCoords()
                 turtleBuild.buildDown()
                 commApi.SendRequest("SET " .. z)
