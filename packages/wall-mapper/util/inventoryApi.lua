@@ -57,7 +57,7 @@ local function GetFromChest(itemID, count)
             local maxPull = math.min(count, v.count)
             if (maxPull > 0) then
                 print("Pull " .. maxPull .. " from " .. v.slot .. " to " .. localSlot)
-                turtle.pullItems("bottom", t.slot, maxPull, localSlot)
+                turtle.pullItems("bottom", v.slot, maxPull, localSlot)
             end
         end
     end
