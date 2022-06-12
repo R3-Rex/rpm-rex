@@ -40,13 +40,14 @@ local function GetFromChest(itemID, count)
 
     for i = 1, 27 do
         local slotData = chest.list()[i]
-        
-        if (slotData.name == itemID) then
-        local newData = {}
-        newData.slot = i
-        newData.count = slotData.count
-        itemList.total = itemList.total + slotData.count;
-        itemList[#itemList + 1] = newData
+        if (slotData ~= nil) then
+            if (slotData.name == itemID) then
+                local newData = {}
+                newData.slot = i
+                newData.count = slotData.count
+                itemList.total = itemList.total + slotData.count;
+                itemList[#itemList + 1] = newData
+            end
         end
     end
     local localSlot = turtle.getSelectedSlot()
@@ -56,6 +57,7 @@ local function GetFromChest(itemID, count)
             if (maxPull > 0) then
                 print("Push " .. maxPull .. " from " .. v.slot .. " \"up\" to " .. localSlot)
                 chest.pushItems("up", v.slot, maxPull, localSlot)
+                count = count - maxPull
             end
         end
     end
