@@ -63,11 +63,27 @@ local function GetFromChest(itemID, count)
     end
     return count;
 end
-
+function CheckResumeState()
+    local state, data = turtle.inspectUp() 
+    if state then
+        if data.name == "enderstorage:ender_storage" then
+            local picked = false;
+            while not picked do
+                if (turtle.digUp()) then
+                    picked = true;
+                else
+                    commApi.SendRequest("STATUS Pull Error")
+                    os.sleep(1)
+                end
+            end
+        end
+    end
+end
 
 local function PullItem(itemID)
     while not FindItem("enderstorage:ender_storage") do
         commApi.SendRequest("STATUS Pull Error")
+        CheckResumeState()
         os.sleep(1)
     end
     local placed = false;

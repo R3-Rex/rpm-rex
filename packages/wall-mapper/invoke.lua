@@ -58,16 +58,19 @@ function ScanUpRow()
     end
 end
 
-cPrint("Starting Drone v4.8b", colors.lime)
+cPrint("Starting Drone v4.9b", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
 tryLoadAPI("util/commApi.lua")
+tryLoadAPI("util/inventoryApi.lua")
+inventoryApi.CheckResumeState()
+
 tryLoadAPI("util/turtleMotor.lua")
 tryLoadAPI("util/groundSkim.lua")
 tryLoadAPI("util/turtleBuild.lua")
-tryLoadAPI("util/inventoryApi.lua")
+
 
 --_________________
 cPrint("Finished")
