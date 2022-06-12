@@ -58,7 +58,7 @@ function ScanUpRow()
     end
 end
 
-cPrint("Starting Drone v4.1b", colors.lime)
+cPrint("Starting Drone v4.2b", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
