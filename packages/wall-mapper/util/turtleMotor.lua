@@ -41,6 +41,11 @@ local function loadData()
     t = textutils.unserialize(f.readAll())
 end
 
+local function PingServer()
+    commApi.SendRequest("STATUS green")
+    commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
+    commApi.SendRequest("FUEL " .. turtle.getFuelLevel())
+end
 function turnLeft()
     local complete = false
     while not complete do
@@ -179,9 +184,7 @@ function turtleMoveForward()
     elseif(t.direction == "west") then
         t.x = t.x - 1
     end
-    commApi.SendRequest("STATUS green")
-    commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
-    commApi.SendRequest("FUEL " .. turtle.getFuelLevel())
+    PingServer()
 end
 function turtleMoveUp()
     local complete = false
@@ -207,9 +210,7 @@ function turtleMoveUp()
         end
     end
     t.y = t.y + 1
-    commApi.SendRequest("STATUS green")
-    commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
-    commApi.SendRequest("FUEL " .. turtle.getFuelLevel())
+    PingServer()
 end
 function turtleMoveDown()
     local complete = false
@@ -235,9 +236,7 @@ function turtleMoveDown()
         end
     end
     t.y = t.y - 1
-    commApi.SendRequest("STATUS green")
-    commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
-    commApi.SendRequest("FUEL " .. turtle.getFuelLevel())
+    PingServer()
 end
 
 function setTurtleStatus(id, status)
@@ -328,6 +327,7 @@ function startupReload()
         saveData()
     end
     faceDirection("north")
+    PingServer()
 end
 
 
