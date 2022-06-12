@@ -58,7 +58,7 @@ function ScanUpRow()
     end
 end
 
-cPrint("Starting Drone v3.14", colors.lime)
+cPrint("Starting Drone v4.0", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -67,6 +67,7 @@ tryLoadAPI("util/commApi.lua")
 tryLoadAPI("util/turtleMotor.lua")
 tryLoadAPI("util/groundSkim.lua")
 tryLoadAPI("util/turtleBuild.lua")
+tryLoadAPI("util/inventoryApi.lua")
 
 --_________________
 cPrint("Finished")
@@ -79,9 +80,11 @@ shell.run("delete config/turtleInfo.cfg")
 cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
-ScanUpRow()
+inventoryApi.GetItem("minecraft:coal_block")
 
-local inRange = true
+--ScanUpRow()
+
+local inRange = false
 while inRange do
     os.setComputerLabel("Rex Drone " .. os.getComputerID() .. " [" .. turtle.getFuelLevel() .. "]")
     local x, y, z = turtleMotor.getCoords()
