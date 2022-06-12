@@ -51,14 +51,18 @@ function ScanUpRow()
         end
         while math.floor(y + 0.5) < wallWanted do
             x, y, z = turtleMotor.getCoords()
-            turtleBuild.buildDown()
+            local block = commApi.SendRequest("GET block")
+            if block ~= "false" then
+                inventoryApi.GetItem(block)
+                turtleBuild.buildDown()
+            end
             commApi.SendRequest("SET " .. z)
             turtleMotor.turtleMoveUp()
         end
     end
 end
 
-cPrint("Starting Drone v4.10b", colors.lime)
+cPrint("Starting Drone v5.0r", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -83,14 +87,11 @@ shell.run("delete config/turtleInfo.cfg")
 cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
-inventoryApi.GetItem("minecraft:coal_block")
-inventoryApi.GetItem("minecraft:packed_ice")
-inventoryApi.GetItem("minecraft:ice")
-inventoryApi.GetItem("minecraft:snow")
-
 --ScanUpRow()
 
-local inRange = false
+ScanUpRow()
+
+local inRange = true
 while inRange do
     os.setComputerLabel("Rex Drone " .. os.getComputerID() .. " [" .. turtle.getFuelLevel() .. "]")
     local x, y, z = turtleMotor.getCoords()
