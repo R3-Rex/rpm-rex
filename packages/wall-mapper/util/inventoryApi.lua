@@ -1,4 +1,4 @@
-
+local handle = peripheral.find('turtle')
 
 local function TestSelected()
     local data = turtle.getItemDetail()
@@ -57,7 +57,8 @@ local function GetFromChest(itemID, count)
             local maxPull = math.min(count, v.count)
             if (maxPull > 0) then
                 print("Pull " .. maxPull .. " from " .. v.slot .. " to " .. localSlot)
-                turtle.pullItems("bottom", v.slot, maxPull, localSlot)
+                local selfName = peripheral.getName(handle)
+                chest.pushItems(selfName, v.slot, maxPull, localSlot)
             end
         end
     end
