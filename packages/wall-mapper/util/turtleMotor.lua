@@ -165,6 +165,7 @@ function turtleMoveForward()
                         turtle.select(i)
                         turtle.refuel()
                     end
+                    inventoryApi.GetItem("minecraft:coal_block")
                 end
             else
                 if (turtle.detect()) then
@@ -199,6 +200,7 @@ function turtleMoveUp()
                         turtle.select(i)
                         turtle.refuel()
                     end
+                    inventoryApi.GetItem("minecraft:coal_block")
                 end
             else
                 if (turtle.detectUp()) then
@@ -225,6 +227,7 @@ function turtleMoveDown()
                         turtle.select(i)
                         turtle.refuel()
                     end
+                    inventoryApi.GetItem("minecraft:coal_block")
                 end
             else
                 if (turtle.detectDown()) then

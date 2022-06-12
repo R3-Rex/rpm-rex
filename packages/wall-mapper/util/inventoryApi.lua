@@ -36,7 +36,7 @@ local chestItems =
 local function GetFromChest(itemID, count)
     local itemList = {}
     itemList.total = 0
-    local chest = peripheral.wrap('bottom')
+    local chest = peripheral.wrap("up")
 
     for i = 1, 27 do
         local slotData = chest.list()[i]
@@ -56,7 +56,7 @@ local function GetFromChest(itemID, count)
             local maxPull = math.min(count, v.count)
             if (maxPull > 0) then
                 print("Push " .. maxPull .. " from " .. v.slot .. " \"up\" to " .. localSlot)
-                chest.pushItems("up", v.slot, maxPull, localSlot)
+                chest.pushItems("down", v.slot, maxPull, localSlot)
                 count = count - maxPull
             end
         end
@@ -73,7 +73,7 @@ local function PullItem(itemID)
     local placed = false;
     local moved = 0
     while not placed do
-        if (turtle.placeDown()) then
+        if (turtle.placeUp()) then
             placed = true;
         else
             turtleMotor.turtleMoveUp()
@@ -85,7 +85,7 @@ local function PullItem(itemID)
     for i = 1, 16 do
         turtle.select(i)
         if (turtle.getItemDetail() == nil or i == 16)  then
-            turtle.dropUp()
+            turtle.dropDown()
             break;
         end
     end
@@ -103,13 +103,13 @@ local function PullItem(itemID)
     for i = 1, 16 do
         turtle.select(i)
         if (turtle.getItemDetail() == nil or i == 16)  then
-            turtle.dropUp()
+            turtle.dropDown()
             break;
         end
     end
     local picked = false;
     while not picked do
-        if (turtle.digDown()) then
+        if (turtle.digUp()) then
             picked = true;
         else
             commApi.SendRequest("STATUS Pull Error")
