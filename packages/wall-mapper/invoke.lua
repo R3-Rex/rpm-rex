@@ -58,7 +58,7 @@ function ScanUpRow()
     end
 end
 
-cPrint("Starting Drone v4.0", colors.lime)
+cPrint("Starting Drone v4.1b", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -81,6 +81,9 @@ cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
 inventoryApi.GetItem("minecraft:coal_block")
+inventoryApi.GetItem("minecraft:packed_ice")
+inventoryApi.GetItem("minecraft:ice")
+inventoryApi.GetItem("minecraft:snow")
 
 --ScanUpRow()
 
