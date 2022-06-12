@@ -66,7 +66,10 @@ end
 
 
 local function PullItem(itemID)
-    FindItem("enderstorage:ender_storage")
+    while not FindItem("enderstorage:ender_storage") do
+        commApi.SendRequest("STATUS Pull Error")
+        os.sleep(1)
+    end
     local placed = false;
     local moved = 0
     while not placed do
