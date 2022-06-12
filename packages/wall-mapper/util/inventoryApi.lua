@@ -36,7 +36,7 @@ local chestItems =
 local function GetFromChest(itemID, count)
     local itemList = {}
     itemList.total = 0
-    local chest = peripheral.wrap("up")
+    local chest = peripheral.wrap("top")
 
     for i = 1, 27 do
         local slotData = chest.list()[i]
