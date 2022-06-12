@@ -34,7 +34,6 @@ end
 
 function ScanUpRow()
     local x, y, z = turtleMotor.getCoords()
-    commApi.SendRequest("GPS " .. x .. " " .. y .. " " .. z)
     local wallHeight = tonumber(commApi.SendRequest("GET height")) + 1
     local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
     local offset = wallWanted - (wallHeight - 1)
@@ -59,7 +58,7 @@ function ScanUpRow()
     end
 end
 
-cPrint("Starting Drone v3.12", colors.lime)
+cPrint("Starting Drone v3.13", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")

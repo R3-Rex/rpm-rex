@@ -179,7 +179,9 @@ function turtleMoveForward()
     elseif(t.direction == "west") then
         t.x = t.x - 1
     end
+    commApi.SendRequest("STATUS green")
     commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
+    commApi.SendRequest("FUEL " .. turtle.getFuelLevel())
 end
 function turtleMoveUp()
     local complete = false
@@ -205,7 +207,9 @@ function turtleMoveUp()
         end
     end
     t.y = t.y + 1
+    commApi.SendRequest("STATUS green")
     commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
+    commApi.SendRequest("FUEL " .. turtle.getFuelLevel())
 end
 function turtleMoveDown()
     local complete = false
@@ -231,7 +235,9 @@ function turtleMoveDown()
         end
     end
     t.y = t.y - 1
+    commApi.SendRequest("STATUS green")
     commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
+    commApi.SendRequest("FUEL " .. turtle.getFuelLevel())
 end
 
 function setTurtleStatus(id, status)

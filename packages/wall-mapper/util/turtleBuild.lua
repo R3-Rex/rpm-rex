@@ -60,6 +60,7 @@ function buildDown()
             end
         end
     end
+    commApi.SendRequest("STATUS green")
     local built = false;
     while not built do
         if (turtle.placeDown()) then
@@ -70,9 +71,13 @@ function buildDown()
                     built = true
                 end
                 if not built then
-                    turtle.digDown()
+                    if not turtle.digDown() then
+                        commApi.SendRequest("STATUS Indestructable Down")
+                        os.sleep(1)
+                    end
                 end
             end
         end
     end
+    commApi.SendRequest("STATUS green")
 end
