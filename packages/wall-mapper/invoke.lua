@@ -82,7 +82,9 @@ function RunResumeInstructions()
             t.direction = "down"
         elseif (instruction == "m-wall-height")then
             local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
+            local x, y, z = turtleMotor.getCoords()
             while math.floor(y - 0.75) < wallWanted do
+                x, y, z = turtleMotor.getCoords()
                 turtleMotor.turtleMoveUp()
             end
         end
@@ -123,7 +125,7 @@ function ScanDownRow()
     RunResumeInstructions()
 end
 
-cPrint("Starting Drone v6.5r", colors.lime)
+cPrint("Starting Drone v6.6r", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
