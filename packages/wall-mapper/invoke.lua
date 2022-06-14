@@ -102,7 +102,7 @@ function ScanUpRow()
         turtleBuild.buildForward()
         turtleMotor.turtleMoveUp()
     end
-    t.resumeInstructions = {"m-up", "b-down", "m-forward", "m-forward", "m-wall-height", "r-down"}
+    t.resumeInstructions = {"b-down", "m-forward", "m-forward", "m-wall-height", "r-down"}
     saveData()
 
     RunResumeInstructions()
