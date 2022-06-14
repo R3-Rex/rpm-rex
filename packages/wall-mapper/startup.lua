@@ -25,4 +25,16 @@ cPrint("Attempting to Update Program")
 shell.run("rpm update")
 cPrint("Finished", colors.green)
 cPrint(dividerDashes)
-shell.run("invoke")
+
+function invokeDoRoutine()
+    shell.run("invoke")
+end
+
+
+function doRoutine()
+    local status, err = pcall(invokeDoRoutine)
+    os.sleep(1)
+    doRoutine()
+end
+
+doRoutine()
