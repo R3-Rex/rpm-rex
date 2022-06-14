@@ -316,6 +316,7 @@ function startupReload()
             while not valid do
                 print("Enter turtle direction (north, east, south, west)")
                 t.direction = string.lower(read())
+                commApi.SendRequest("STATUS Manual Direction")
                 if (t.direction == "north") then
                     valid = true
                 elseif(t.direction == "east") then

@@ -55,6 +55,19 @@ function tryLoadAPI(path)
     end
     return api
 end
+function RunServerInstructions()
+    local continue = true;
+    while continue do
+        local command = commApi.SendRequest("GET command")
+        if (command == "false")then
+            continue = false;
+        else
+            if (command == "restart") then
+                os.reboot();
+            end
+        end
+    end
+end
 function RunResumeInstructions()
     while #t.resumeInstructions > 0 do
         local instruction = t.resumeInstructions[1]
@@ -88,6 +101,7 @@ function RunResumeInstructions()
                 turtleMotor.turtleMoveUp()
             end
         end
+        RunServerInstructions()
         saveData()
     end
 end
@@ -97,6 +111,7 @@ function ScanUpRow()
     local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
 
     while math.floor(y + 0.25) < wallWanted do
+        RunServerInstructions()
         x, y, z = turtleMotor.getCoords()
         turtleBuild.buildDown()
         turtleBuild.buildForward()
@@ -111,6 +126,7 @@ function ScanDownRow()
 
     local continue = true
     while continue do
+        RunServerInstructions()
         if (not turtle.detectDown()) then
             turtleBuild.buildUp()
             turtleBuild.buildForward()
@@ -125,7 +141,9 @@ function ScanDownRow()
     RunResumeInstructions()
 end
 
-cPrint("Starting Drone v6.11r", colors.lime)
+local VERSION = "6.12r"
+
+cPrint("Starting Drone v" .. VERSION, colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -138,6 +156,7 @@ tryLoadAPI("util/turtleMotor.lua")
 tryLoadAPI("util/groundSkim.lua")
 tryLoadAPI("util/turtleBuild.lua")
 
+commApi.SendRequest("VERSION " .. VERSION)
 
 --_________________
 cPrint("Finished")
