@@ -62,7 +62,6 @@ function RunResumeInstructions()
             t.resumeInstructions[i - 1] = t.resumeInstructions[i]
         end
         t.resumeInstructions[ #t.resumeInstructions] = nil
-        saveData()
         if (instruction == "m-up")then
             turtleMotor.turtleMoveUp()
         elseif (instruction == "m-down")then
@@ -79,11 +78,15 @@ function RunResumeInstructions()
             turtleBuild.buildBackward()
         elseif (instruction == "r-up")then
             t.direction = "up"
-            saveData()
         elseif (instruction == "r-down")then
             t.direction = "down"
-            saveData()
+        elseif (instruction == "m-wall-height")then
+            local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
+            while math.floor(y - 0.75) < wallWanted do
+                turtleMotor.turtleMoveUp()
+            end
         end
+        saveData()
     end
 end
 function ScanUpRow()
@@ -96,13 +99,7 @@ function ScanUpRow()
         turtleBuild.buildForward()
         turtleMotor.turtleMoveUp()
     end
-    turtleMoveForward()
-    turtleMoveForward()
-    t.direction = "down"
-    wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
-    while math.floor(y - 0.75) < wallWanted do
-        turtleMotor.turtleMoveUp()
-    end
+    t.resumeInstructions = {"m-forward", "m-forward", "m-wall-height", "r-down"}
     saveData()
 end
 function ScanDownRow()
@@ -120,11 +117,10 @@ function ScanDownRow()
     end
     t.resumeInstructions = {"m-up", "b-down", "m-forward", "b-backward", "m-down", "b-up", "m-forward", "b-backward", "r-up"}
 
-    t.direction = "up"
     saveData()
 end
 
-cPrint("Starting Drone v6.0r", colors.lime)
+cPrint("Starting Drone v6.1r", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -150,17 +146,10 @@ cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
 --ScanUpRow()
+RunResumeInstructions()
 
-if (t.direction == "up") then
-    ScanUpRow()
-else
-    ScanDownRow()
-end
 local inRange = true
 while inRange do
-    os.setComputerLabel("Rex Drone " .. os.getComputerID() .. " [" .. turtle.getFuelLevel() .. "]")
-    local x, y, z = turtleMotor.getCoords()
-    print(x .. "," .. y.. "," .. z)
     if (x >= wallStart and x <= wallEnd) then
         turtleMotor.faceDirection("east")
         if (t.direction == "up") then
