@@ -1,4 +1,4 @@
-local VERSION = "0.2b"
+local VERSION = "0.3b"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -101,8 +101,9 @@ cPrint("")
 local inRange = true
 while inRange do
     local x, y, z = turtleMotor.getCoords()
-    local currentEnd = commApi.SendRequest("CHUNK " .. x)
+    local currentEnd = tonumber(commApi.SendRequest("CHUNK " .. x))
     if (currentEnd - x > 16) then
+        turtleMotor.faceDirection("east")
         for i = 1, 16 do
             groundSkim.turtleForwardStaircase()
         end
