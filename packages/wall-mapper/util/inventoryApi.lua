@@ -92,7 +92,7 @@ local function PullItem(itemID)
         if (turtle.placeUp()) then
             placed = true;
         else
-            turtleMotor.turtleMoveUp()
+            turtleMotor.turtleMoveDown()
             moved = moved + 1
         end
     end
@@ -133,7 +133,7 @@ local function PullItem(itemID)
         end
     end
     for i = 1, moved do
-        turtleMotor.turtleMoveDown()
+        turtleMotor.turtleMoveUp()
     end
 end
 
