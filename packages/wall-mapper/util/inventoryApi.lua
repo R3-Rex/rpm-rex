@@ -72,7 +72,7 @@ function CheckResumeState()
                 if (turtle.digUp()) then
                     picked = true;
                 else
-                    commApi.SendRequest("STATUS Pull Error")
+                    commApi.SendRequest("STATUS Pull Error - No Place")
                     os.sleep(1)
                 end
             end
@@ -82,7 +82,7 @@ end
 
 local function PullItem(itemID)
     while not FindItem("enderstorage:ender_storage") do
-        commApi.SendRequest("STATUS Pull Error")
+        commApi.SendRequest("STATUS Pull Error - No Chest")
         CheckResumeState()
         os.sleep(1)
     end
@@ -111,7 +111,7 @@ local function PullItem(itemID)
     while pullAmount > 0 do
         pullAmount = GetFromChest(itemID, pullAmount)
         if (pullAmount > 0) then
-            commApi.SendRequest("STATUS Pull Error")
+            commApi.SendRequest("STATUS Pull Error - Not Enough")
         end
     end
 
@@ -128,7 +128,7 @@ local function PullItem(itemID)
         if (turtle.digUp()) then
             picked = true;
         else
-            commApi.SendRequest("STATUS Pull Error")
+            commApi.SendRequest("STATUS Pull Error - Cant Grab")
             os.sleep(1)
         end
     end

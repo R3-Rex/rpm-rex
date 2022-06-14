@@ -125,7 +125,7 @@ function ScanDownRow()
     RunResumeInstructions()
 end
 
-cPrint("Starting Drone v6.10r", colors.lime)
+cPrint("Starting Drone v6.11r", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
