@@ -95,6 +95,7 @@ function ScanUpRow()
     local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
 
     while math.floor(y - 0.75) < wallWanted do
+        x, y, z = turtleMotor.getCoords()
         turtleBuild.buildDown()
         turtleBuild.buildForward()
         turtleMotor.turtleMoveUp()
@@ -108,7 +109,6 @@ function ScanDownRow()
 
     local continue = true
     while continue do
-        x, y, z = turtleMotor.getCoords()
         if (not turtle.detectDown()) then
             turtleBuild.buildUp()
             turtleBuild.buildForward()
