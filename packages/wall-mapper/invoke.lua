@@ -101,6 +101,8 @@ function ScanUpRow()
     end
     t.resumeInstructions = {"m-forward", "m-forward", "m-wall-height", "r-down"}
     saveData()
+
+    RunResumeInstructions()
 end
 function ScanDownRow()
 
@@ -116,11 +118,12 @@ function ScanDownRow()
         end
     end
     t.resumeInstructions = {"m-up", "b-down", "m-forward", "b-backward", "m-down", "b-up", "m-forward", "b-backward", "r-up"}
-
     saveData()
+
+    RunResumeInstructions()
 end
 
-cPrint("Starting Drone v6.1r", colors.lime)
+cPrint("Starting Drone v6.2r", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -152,6 +155,7 @@ local inRange = true
 while inRange do
     if (x >= wallStart and x <= wallEnd) then
         turtleMotor.faceDirection("east")
+        RunResumeInstructions()
         if (t.direction == "up") then
             ScanUpRow()
         else
