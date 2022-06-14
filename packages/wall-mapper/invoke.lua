@@ -36,33 +36,20 @@ function ScanUpRow()
     local x, y, z = turtleMotor.getCoords()
     local wallHeight = tonumber(commApi.SendRequest("GET height")) + 1
     local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
-    local offset = wallWanted - (wallHeight - 1)
-    if (offset > 0) then
-        if (math.floor(y + 0.5) < wallHeight)then
-            for i = 1, wallHeight - math.floor(y + 0.5) do
-                turtleMotor.turtleMoveUp()
-            end
-        elseif (math.floor(y + 0.5) > wallHeight) then
-            for i = 1, math.floor(y + 0.5) - wallHeight do
-                if not turtle.detectDown() then
-                    turtleMotor.turtleMoveDown()
-                end
-            end
+
+    while math.floor(y - 0.75) < wallWanted do
+        x, y, z = turtleMotor.getCoords()
+        local block = commApi.SendRequest("GET block")
+        if block ~= "false" then
+            inventoryApi.GetItem(block)
+            turtleBuild.buildDown()
         end
-        while math.floor(y + 0.5) < wallWanted do
-            x, y, z = turtleMotor.getCoords()
-            local block = commApi.SendRequest("GET block")
-            if block ~= "false" then
-                inventoryApi.GetItem(block)
-                turtleBuild.buildDown()
-            end
-            commApi.SendRequest("SET " .. z)
-            turtleMotor.turtleMoveUp()
-        end
+        commApi.SendRequest("SET " .. z)
+        turtleMotor.turtleMoveUp()
     end
 end
 
-cPrint("Starting Drone v5.3r", colors.lime)
+cPrint("Starting Drone v5.4r", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
