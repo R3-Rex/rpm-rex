@@ -94,13 +94,13 @@ function ScanUpRow()
     local wallHeight = tonumber(commApi.SendRequest("GET height")) + 1
     local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
 
-    while math.floor(y - 0.75) < wallWanted do
+    while math.floor(y + 0.25) < wallWanted do
         x, y, z = turtleMotor.getCoords()
         turtleBuild.buildDown()
         turtleBuild.buildForward()
         turtleMotor.turtleMoveUp()
     end
-    t.resumeInstructions = {"m-forward", "m-forward", "m-wall-height", "r-down"}
+    t.resumeInstructions = {"m-up", "b-down", "m-forward", "m-forward", "m-wall-height", "r-down"}
     saveData()
 
     RunResumeInstructions()
@@ -123,7 +123,7 @@ function ScanDownRow()
     RunResumeInstructions()
 end
 
-cPrint("Starting Drone v6.3r", colors.lime)
+cPrint("Starting Drone v6.5r", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
