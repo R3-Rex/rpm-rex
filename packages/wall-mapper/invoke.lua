@@ -56,6 +56,7 @@ function tryLoadAPI(path)
     return api
 end
 function RunServerInstructions()
+    commApi.SendRequest("VERSION " .. VERSION)
     local continue = true;
     while continue do
         local command = commApi.SendRequest("GET command")
@@ -141,7 +142,7 @@ function ScanDownRow()
     RunResumeInstructions()
 end
 
-local VERSION = "6.12r"
+local VERSION = "6.13r"
 
 cPrint("Starting Drone v" .. VERSION, colors.lime)
 os.sleep(1)
@@ -156,7 +157,7 @@ tryLoadAPI("util/turtleMotor.lua")
 tryLoadAPI("util/groundSkim.lua")
 tryLoadAPI("util/turtleBuild.lua")
 
-commApi.SendRequest("VERSION " .. VERSION)
+
 
 --_________________
 cPrint("Finished")
@@ -170,6 +171,7 @@ cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
 --ScanUpRow()
+RunServerInstructions()
 RunResumeInstructions()
 
 local inRange = true
