@@ -1,4 +1,4 @@
-local VERSION = "0.4b"
+local VERSION = "0.5b"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -129,4 +129,5 @@ while inRange do
             turtleMotor.turtleMoveUp()
         end
     end
+    os.sleep(5)
 end
