@@ -312,6 +312,8 @@ function startupReload()
         if (testTurtleDirection()) then
             print("Found turtle direction by testing!", colors.green)
         else
+            setTurtleGPS()
+            PingServer()
             commApi.SendRequest("STATUS HELP Manual Direction")
             local valid = false
             while not valid do
