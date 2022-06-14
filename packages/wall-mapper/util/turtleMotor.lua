@@ -251,19 +251,11 @@ end
 
 function testTurtleDirection()
     local upCount = 0
+    local downCount = 0
     local cleared = false;
     local stillComplete = true
     while not cleared and stillComplete do
-        if (turtle.detect()) then
-            if (not turtle.detectUp()) then
-                turtleMoveUp()
-                upCount = upCount + 1
-            else
-                stillComplete = false
-            end
-        else
-            cleared = true
-        end
+        cleared = true
     end
     if (cleared and stillComplete) then
         local sx, sy, sz = gps.locate(5)
