@@ -1,4 +1,4 @@
-local VERSION = "6.18r"
+local VERSION = "6.19r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -101,7 +101,28 @@ function RunResumeInstructions()
                 x, y, z = turtleMotor.getCoords()
                 turtleMotor.turtleMoveUp()
             end
+        elseif (instruction == "f-north")then
+            turtleMotor.faceDirection("north")
+        elseif (instruction == "f-east")then
+            turtleMotor.faceDirection("east")
+        elseif (instruction == "f-south")then
+            turtleMotor.faceDirection("south")
+        elseif (instruction == "f-west")then
+            turtleMotor.faceDirection("west")
+        elseif (instruction == "m-north")then
+            turtleMotor.faceDirection("north")
+            turtleMotor.turtleMoveForward()
+        elseif (instruction == "m-east")then
+            turtleMotor.faceDirection("east")
+            turtleMotor.turtleMoveForward()
+        elseif (instruction == "m-south")then
+            turtleMotor.faceDirection("south")
+            turtleMotor.turtleMoveForward()
+        elseif (instruction == "m-west")then
+            turtleMotor.faceDirection("west")
+            turtleMotor.turtleMoveForward()
         end
+        
         RunServerInstructions()
         saveData()
     end
@@ -118,7 +139,7 @@ function ScanUpRow()
         turtleBuild.buildForward()
         turtleMotor.turtleMoveUp()
     end
-    t.resumeInstructions = {"b-down", "m-forward", "m-forward", "m-wall-height", "m-down", "b-forward", "m-down", "r-down"}
+    t.resumeInstructions = {"b-down", "m-east", "m-east", "m-wall-height", "m-down", "b-forward", "m-down", "r-down"}
     saveData()
 
     RunResumeInstructions()
@@ -136,7 +157,7 @@ function ScanDownRow()
             continue = false
         end
     end
-    t.resumeInstructions = {"m-up", "b-down", "m-forward", "b-backward", "m-down", "b-up", "m-forward", "b-backward", "r-up"}
+    t.resumeInstructions = {"m-up", "b-down", "m-east", "b-backward", "m-down", "b-up", "m-east", "b-backward", "r-up"}
     saveData()
 
     RunResumeInstructions()
