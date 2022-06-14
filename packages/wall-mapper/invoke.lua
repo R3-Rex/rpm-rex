@@ -123,7 +123,7 @@ function ScanDownRow()
     RunResumeInstructions()
 end
 
-cPrint("Starting Drone v6.2r", colors.lime)
+cPrint("Starting Drone v6.3r", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -153,6 +153,7 @@ RunResumeInstructions()
 
 local inRange = true
 while inRange do
+    local x, y, z = turtleMotor.getCoords()
     if (x >= wallStart and x <= wallEnd) then
         turtleMotor.faceDirection("east")
         RunResumeInstructions()
