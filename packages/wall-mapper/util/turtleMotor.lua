@@ -45,6 +45,7 @@ local function PingServer()
     commApi.SendRequest("STATUS green")
     commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
     commApi.SendRequest("FUEL " .. turtle.getFuelLevel())
+    os.setComputerLabel("Rex Drone " .. os.getComputerID() .. " [" .. turtle.getFuelLevel() .. "]")
 end
 function turnLeft()
     local complete = false
