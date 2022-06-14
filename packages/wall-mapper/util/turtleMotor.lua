@@ -172,7 +172,7 @@ function turtleMoveForward()
                 if (turtle.detect()) then
                     turtle.dig()
                 else
-                    commApi.SendRequest("STATUS Unknown Error!")
+                    commApi.SendRequest("STATUS HELP Unknown Error!")
                 end
             end
         end
@@ -207,7 +207,7 @@ function turtleMoveUp()
                 if (turtle.detectUp()) then
                     turtle.digUp()
                 else
-                    commApi.SendRequest("STATUS Unknown Error!")
+                    commApi.SendRequest("STATUS HELP Unknown Error!")
                 end
             end
         end
@@ -234,7 +234,7 @@ function turtleMoveDown()
                 if (turtle.detectDown()) then
                     turtle.digDown()
                 else
-                    commApi.SendRequest("STATUS Unknown Error!")
+                    commApi.SendRequest("STATUS HELP Unknown Error!")
                 end
             end
         end
@@ -312,11 +312,11 @@ function startupReload()
         if (testTurtleDirection()) then
             print("Found turtle direction by testing!", colors.green)
         else
+            commApi.SendRequest("STATUS HELP Manual Direction")
             local valid = false
             while not valid do
                 print("Enter turtle direction (north, east, south, west)")
                 t.direction = string.lower(read())
-                commApi.SendRequest("STATUS Manual Direction")
                 if (t.direction == "north") then
                     valid = true
                 elseif(t.direction == "east") then

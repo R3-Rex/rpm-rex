@@ -1,4 +1,4 @@
-local VERSION = "6.16r"
+local VERSION = "6.18r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -56,8 +56,8 @@ function tryLoadAPI(path)
     return api
 end
 function RunServerInstructions()
-    commApi.SendRequest("VERSION " .. VERSION)
-    local continue = true;
+    local ask = commApi.SendRequest("VERSION " .. VERSION)
+    local continue = (ask == "true");
     while continue do
         local command = commApi.SendRequest("GET command")
         if (command == "false")then
@@ -150,9 +150,9 @@ cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
 tryLoadAPI("util/commApi.lua")
+RunServerInstructions()
 tryLoadAPI("util/inventoryApi.lua")
 inventoryApi.CheckResumeState()
-
 tryLoadAPI("util/turtleMotor.lua")
 tryLoadAPI("util/groundSkim.lua")
 tryLoadAPI("util/turtleBuild.lua")
@@ -171,7 +171,7 @@ cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
 --ScanUpRow()
-RunServerInstructions()
+
 RunResumeInstructions()
 
 local inRange = true
