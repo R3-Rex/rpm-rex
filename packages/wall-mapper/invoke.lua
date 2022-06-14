@@ -1,4 +1,4 @@
-
+local VERSION = "6.15r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -142,7 +142,7 @@ function ScanDownRow()
     RunResumeInstructions()
 end
 
-local VERSION = "6.14r"
+
 
 cPrint("Starting Drone v" .. VERSION, colors.lime)
 os.sleep(1)
