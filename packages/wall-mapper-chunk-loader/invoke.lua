@@ -1,4 +1,4 @@
-local VERSION = "0.1b"
+local VERSION = "0.2b"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -101,35 +101,30 @@ cPrint("")
 local inRange = true
 while inRange do
     local x, y, z = turtleMotor.getCoords()
-    if (x >= wallStart and x <= wallEnd) then
-        local currentEnd = commApi.SendRequest("CHUNK " .. x)
-        if (currentEnd - x > 16) then
-            for i = 1, 16 do
-                groundSkim.turtleForwardStaircase()
-            end
-            for i = 1, 16 do
-                turtleMotor.turtleMoveUp()
-            end
-            turtle.placeUp()
-            turtleMotor.faceDirection("west")
-            for i = 1, 16 do
-                groundSkim.turtleForwardStaircase()
-            end
-            for i = 1, 16 do
-                turtleMotor.turtleMoveUp()
-            end
-            turtle.select(1)
-            turtle.digUp()
-            turtleMotor.faceDirection("east")
-            for i = 1, 16 do
-                groundSkim.turtleForwardStaircase()
-            end
-            for i = 1, 16 do
-                turtleMotor.turtleMoveUp()
-            end
+    local currentEnd = commApi.SendRequest("CHUNK " .. x)
+    if (currentEnd - x > 16) then
+        for i = 1, 16 do
+            groundSkim.turtleForwardStaircase()
         end
-    else
-        commApi.SendRequest("STATUS Finished.")
-        inRange = false;
+        for i = 1, 16 do
+            turtleMotor.turtleMoveUp()
+        end
+        turtle.placeUp()
+        turtleMotor.faceDirection("west")
+        for i = 1, 16 do
+            groundSkim.turtleForwardStaircase()
+        end
+        for i = 1, 16 do
+            turtleMotor.turtleMoveUp()
+        end
+        turtle.select(1)
+        turtle.digUp()
+        turtleMotor.faceDirection("east")
+        for i = 1, 16 do
+            groundSkim.turtleForwardStaircase()
+        end
+        for i = 1, 16 do
+            turtleMotor.turtleMoveUp()
+        end
     end
 end
