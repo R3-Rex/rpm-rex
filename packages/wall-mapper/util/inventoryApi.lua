@@ -73,6 +73,7 @@ function CheckResumeState()
                     picked = true;
                 else
                     commApi.SendRequest("STATUS Pull Error - No Place")
+                    invoke.RunServerInstructions();
                     os.sleep(1)
                 end
             end
@@ -83,6 +84,7 @@ end
 local function PullItem(itemID)
     while not FindItem("enderstorage:ender_storage") do
         commApi.SendRequest("STATUS Pull Error - No Chest")
+        invoke.RunServerInstructions();
         CheckResumeState()
         os.sleep(1)
     end
@@ -112,6 +114,7 @@ local function PullItem(itemID)
         pullAmount = GetFromChest(itemID, pullAmount)
         if (pullAmount > 0) then
             commApi.SendRequest("STATUS Pull Error - Not Enough")
+            invoke.RunServerInstructions();
         end
     end
 
@@ -129,6 +132,7 @@ local function PullItem(itemID)
             picked = true;
         else
             commApi.SendRequest("STATUS Pull Error - Cant Grab")
+            invoke.RunServerInstructions();
             os.sleep(1)
         end
     end

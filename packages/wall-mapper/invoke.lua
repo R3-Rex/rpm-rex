@@ -142,7 +142,7 @@ function ScanDownRow()
     RunResumeInstructions()
 end
 
-local VERSION = "6.13r"
+local VERSION = "6.14r"
 
 cPrint("Starting Drone v" .. VERSION, colors.lime)
 os.sleep(1)
