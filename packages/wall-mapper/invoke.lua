@@ -9,6 +9,30 @@ for i = 3, w do
 end
 -- Fin
 
+path = "config/buildState.cfg"
+t = {}
+local function saveData()
+    local f = fs.open(path, "w")
+    f.write(textutils.serialise(t))
+    f.close()
+end
+local function loadData()
+    local f = nil
+    if fs.exists(path) then
+        f = fs.open(path, "r")
+    else
+        t.direction = "up"
+        t.resumeInstructions = {}
+        saveData()
+        f = fs.open(path, "r")
+        
+    end
+   
+    t = textutils.unserialize(f.readAll())
+end
+
+loadData()
+
 function cPrint(text, color)
     if (color == nil) then
         color = colors.white
@@ -31,25 +55,76 @@ function tryLoadAPI(path)
     end
     return api
 end
-
+function RunResumeInstructions()
+    while #t.resumeInstructions > 0 do
+        local instruction = t.resumeInstructions[1]
+        for i = 2, #t.resumeInstructions do
+            t.resumeInstructions[i - 1] = t.resumeInstructions[i]
+        end
+        t.resumeInstructions[ #t.resumeInstructions] = nil
+        saveData()
+        if (instruction == "m-up")then
+            turtleMotor.turtleMoveUp()
+        elseif (instruction == "m-down")then
+            turtleMotor.turtleMoveDown()
+        elseif (instruction == "m-forward")then
+            turtleMotor.turtleMoveForward()
+        elseif (instruction == "b-up")then
+            turtleBuild.buildUp()
+        elseif (instruction == "b-down")then
+            turtleBuild.buildDown()
+        elseif (instruction == "b-forward")then
+            turtleBuild.buildForward()
+        elseif (instruction == "b-backward")then
+            turtleBuild.buildBackward()
+        elseif (instruction == "r-up")then
+            t.direction = "up"
+            saveData()
+        elseif (instruction == "r-down")then
+            t.direction = "down"
+            saveData()
+        end
+    end
+end
 function ScanUpRow()
     local x, y, z = turtleMotor.getCoords()
     local wallHeight = tonumber(commApi.SendRequest("GET height")) + 1
     local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
 
     while math.floor(y - 0.75) < wallWanted do
-        x, y, z = turtleMotor.getCoords()
-        local block = commApi.SendRequest("GET block")
-        if block ~= "false" then
-            inventoryApi.GetItem(block)
-            turtleBuild.buildDown()
-        end
-        commApi.SendRequest("SET " .. z)
+        turtleBuild.buildDown()
+        turtleBuild.buildForward()
         turtleMotor.turtleMoveUp()
     end
+    turtleMoveForward()
+    turtleMoveForward()
+    t.direction = "down"
+    wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
+    while math.floor(y - 0.75) < wallWanted do
+        turtleMotor.turtleMoveUp()
+    end
+    saveData()
+end
+function ScanDownRow()
+
+    local continue = true
+    while continue do
+        x, y, z = turtleMotor.getCoords()
+        if (not turtle.detectDown()) then
+            turtleBuild.buildUp()
+            turtleBuild.buildForward()
+            turtleMotor.turtleMoveDown()
+        else
+            continue = false
+        end
+    end
+    t.resumeInstructions = {"m-up", "b-down", "m-forward", "b-backward", "m-down", "b-up", "m-forward", "b-backward", "r-up"}
+
+    t.direction = "up"
+    saveData()
 end
 
-cPrint("Starting Drone v5.5r", colors.lime)
+cPrint("Starting Drone v6.0r", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -75,16 +150,12 @@ cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
 --ScanUpRow()
-local bottom = false
-while not bottom do
-    if not turtle.detectDown() then
-        turtleMotor.turtleMoveDown()
-    else
-        bottom = true;
-    end
-end
-ScanUpRow()
 
+if (t.direction == "up") then
+    ScanUpRow()
+else
+    ScanDownRow()
+end
 local inRange = true
 while inRange do
     os.setComputerLabel("Rex Drone " .. os.getComputerID() .. " [" .. turtle.getFuelLevel() .. "]")
@@ -92,8 +163,11 @@ while inRange do
     print(x .. "," .. y.. "," .. z)
     if (x >= wallStart and x <= wallEnd) then
         turtleMotor.faceDirection("east")
-        groundSkim.turtleForwardStaircase()
-        ScanUpRow()
+        if (t.direction == "up") then
+            ScanUpRow()
+        else
+            ScanDownRow()
+        end
     else
         commApi.SendRequest("STATUS Finished.")
         inRange = false;
