@@ -49,7 +49,7 @@ function ScanUpRow()
     end
 end
 
-cPrint("Starting Drone v5.4r", colors.lime)
+cPrint("Starting Drone v5.5r", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -75,7 +75,14 @@ cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
 --ScanUpRow()
-
+local bottom = false
+while not bottom do
+    if not turtle.detectDown() then
+        turtleMotor.turtleMoveDown()
+    else
+        bottom = true;
+    end
+end
 ScanUpRow()
 
 local inRange = true
