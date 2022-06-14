@@ -330,7 +330,6 @@ function startupReload()
         setTurtleGPS()
         saveData()
     end
-    faceDirection("north")
     PingServer()
 end
 
