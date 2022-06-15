@@ -27,10 +27,11 @@ end
 function RunResumeInstructions()
     while #t.resumeInstructions > 0 do
         local instruction = t.resumeInstructions[1]
+        local newInstructions = {}
         for i = 2, #t.resumeInstructions do
-            t.resumeInstructions[i - 1] = t.resumeInstructions[i]
+            newInstructions[#newInstructions + 1] = t.resumeInstructions[i]
         end
-        t.resumeInstructions[ #t.resumeInstructions] = nil
+        t.resumeInstructions = newInstructions
         if (instruction == "m-up")then
             turtleMotor.turtleMoveUp()
         elseif (instruction == "m-down")then
@@ -93,8 +94,6 @@ function RunResumeInstructions()
         elseif (instruction == "t-right")then
             turtleMotor.turnRight()
         end
-        
-        commApi.RunServerInstructions()
         saveData()
     end
 end
