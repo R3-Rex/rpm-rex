@@ -100,3 +100,6 @@ function AddCommands(newCommands)
     end
     saveData()
 end
+function GetDirection()
+    return t.direction
+end

@@ -1,4 +1,4 @@
-local VERSION = "7.2r"
+local VERSION = "7.3r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -104,7 +104,7 @@ while inRange do
     if (x >= wallStart and x <= wallEnd) then
         instructionApi.AddCommands({"f-east"})
         instructionApi.RunResumeInstructions()
-        if (t.direction == "up") then
+        if (instructionApi.GetDirection() == "up") then
             ScanUpRow()
         else
             ScanDownRow()
