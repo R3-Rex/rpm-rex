@@ -1,3 +1,4 @@
+local VERSION = "UNINIT"
 path = "config/server_data.cfg"
 t = {}
 local function saveData()
@@ -30,6 +31,10 @@ function SendRequest(rawQuery)
             return message
         end
     end
+end
+
+function SetVersion(_VERSION)
+    VERSION = _VERSION
 end
 
 function RunServerInstructions()
