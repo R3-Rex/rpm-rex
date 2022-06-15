@@ -98,6 +98,10 @@ local function PullItem(itemID)
             moved = moved + 1
         end
     end
+    instructionApi.AddCommands({"d-up"})
+    for i = 1, moved do
+        instructionApi.AddCommands({"m-up"})
+    end
 
     --Get Empty Slot
     for i = 1, 16 do
@@ -126,19 +130,7 @@ local function PullItem(itemID)
             break;
         end
     end
-    local picked = false;
-    while not picked do
-        if (turtle.digUp()) then
-            picked = true;
-        else
-            commApi.SendRequest("STATUS Pull Error - Cant Grab")
-            commApi.RunServerInstructions();
-            os.sleep(1)
-        end
-    end
-    for i = 1, moved do
-        turtleMotor.turtleMoveUp()
-    end
+    instructionApi.RunResumeInstructions()
 end
 
 function GetItem(itemID)

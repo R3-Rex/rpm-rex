@@ -250,47 +250,29 @@ function setTurtleStatus(id, status)
 end
 
 function testTurtleDirection()
-    local upCount = 0
-    local downCount = 0
-    local cleared = false;
-    local stillComplete = true
-    while not cleared and stillComplete do
-        cleared = true
-    end
-    if (cleared and stillComplete) then
-        local sx, sy, sz = gps.locate(5)
-        turtleMoveForward()
-        local fx, fy, fz = gps.locate(5)
 
-        local xOffset = fx - sx
-        local yOffset = fz - sz
+    local sx, sy, sz = gps.locate(5)
+    turtleMoveForward()
+    instructionApi.AddCommands({"t-right", "t-right", "m-forward", "t-right", "t-right"})
+    local fx, fy, fz = gps.locate(5)
 
-        if (xOffset > 0.5) then
-            t.direction = "east"
-        elseif(xOffset < -0.5) then
-            t.direction = "west"
-        elseif(yOffset > 0.5) then
-            t.direction = "south"
-        elseif(yOffset < -0.5) then
-            t.direction = "north"
-        end
-        --Return Back there
-        turnRight()
-        turnRight()
-        turtleMoveForward()
-        turnRight()
-        turnRight()
+    local xOffset = fx - sx
+    local yOffset = fz - sz
+
+    if (xOffset > 0.5) then
+        t.direction = "east"
+    elseif(xOffset < -0.5) then
+        t.direction = "west"
+    elseif(yOffset > 0.5) then
+        t.direction = "south"
+    elseif(yOffset < -0.5) then
+        t.direction = "north"
     end
-    for i = 1, upCount do
-        turtleMoveDown()
-    end
-    if (not stillComplete) then
-        saveData()
-        return false
-    else
-        saveData()
-        return true
-    end
+    --Return Back there
+    instructionApi.RunResumeInstructions()
+
+    saveData()
+    return true
 end
 
 function startupReload()
