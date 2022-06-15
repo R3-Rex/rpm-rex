@@ -1,4 +1,4 @@
-local VERSION = "7.1r"
+local VERSION = "7.2r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -9,7 +9,6 @@ for i = 3, w do
 end
 -- Fin
 
-loadData()
 
 function cPrint(text, color)
     if (color == nil) then
