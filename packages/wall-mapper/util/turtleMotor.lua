@@ -14,6 +14,11 @@ local function saveData()
     end
     if (rescan) then
         local x, y, z = gps.locate(5)
+        while (x == nil or y == nil or z == nil) do
+            commApi.SendRequest("STATUS HELP Gps Error!")
+            os.sleep(5)
+            x, y, z = gps.locate(5)
+        end
         t.x = x
         t.y = y
         t.z = z
@@ -136,6 +141,11 @@ end
 
 function setTurtleGPS()
     local x, y, z = gps.locate(5)
+    while (x == nil or y == nil or z == nil) do
+        commApi.SendRequest("STATUS HELP Gps Error!")
+        os.sleep(5)
+        x, y, z = gps.locate(5)
+    end
     local changed = 0
     if (t.x ~= x) then
         changed = math.max(math.abs(t.x - x), changed)
@@ -252,10 +262,19 @@ end
 function testTurtleDirection()
 
     local sx, sy, sz = gps.locate(5)
+    while (sx == nil or sy == nil or sz == nil) do
+        commApi.SendRequest("STATUS HELP Gps Error!")
+        os.sleep(5)
+        sx, sy, sz = gps.locate(5)
+    end
     turtleMoveForward()
     instructionApi.AddCommands({"t-right", "t-right", "m-forward", "t-right", "t-right"})
     local fx, fy, fz = gps.locate(5)
-
+    while (fx == nil or fy == nil or fz == nil) do
+        commApi.SendRequest("STATUS HELP Gps Error!")
+        os.sleep(5)
+        fx, fy, fz = gps.locate(5)
+    end
     local xOffset = fx - sx
     local yOffset = fz - sz
 
@@ -308,6 +327,10 @@ function startupReload()
         saveData()
     end
     PingServer()
+end
+
+function GetDirection()
+    return t.direction
 end
 
 

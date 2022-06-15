@@ -37,7 +37,8 @@ function RunResumeInstructions()
         elseif (instruction == "b-down")then
             turtleBuild.buildDown()
         elseif (instruction == "b-forward")then
-            turtleBuild.buildForward()
+                turtleBuild.buildForward()
+
         elseif (instruction == "b-backward")then
             turtleBuild.buildBackward()
         elseif (instruction == "r-up")then

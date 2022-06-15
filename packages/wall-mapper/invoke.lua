@@ -1,4 +1,4 @@
-local VERSION = "7.0r"
+local VERSION = "7.1r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -91,7 +91,7 @@ cPrint(dividerDashes)
 cPrint("Loading static data from server")
 local wallStart = tonumber(commApi.SendRequest("GET wall-start"))
 local wallEnd = tonumber(commApi.SendRequest("GET wall-end"))
-shell.run("delete config/turtleInfo.cfg")
+
 cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
