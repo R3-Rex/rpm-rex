@@ -1,4 +1,4 @@
-local VERSION = "6.22r"
+local VERSION = "6.23r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -157,7 +157,7 @@ cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
 tryLoadAPI("util/commApi.lua")
-RunServerInstructions()
+commApi.RunServerInstructions()
 tryLoadAPI("util/inventoryApi.lua")
 inventoryApi.CheckResumeState()
 tryLoadAPI("util/turtleMotor.lua")
