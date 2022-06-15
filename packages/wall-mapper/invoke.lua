@@ -1,4 +1,4 @@
-local VERSION = "6.21r"
+local VERSION = "6.22r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -55,20 +55,6 @@ function tryLoadAPI(path)
     end
     return api
 end
-function RunServerInstructions()
-    local ask = commApi.SendRequest("VERSION " .. VERSION)
-    local continue = (ask == "true");
-    while continue do
-        local command = commApi.SendRequest("GET command")
-        if (command == "false")then
-            continue = false;
-        else
-            if (command == "restart") then
-                os.reboot();
-            end
-        end
-    end
-end
 function RunResumeInstructions()
     while #t.resumeInstructions > 0 do
         local instruction = t.resumeInstructions[1]
@@ -123,7 +109,7 @@ function RunResumeInstructions()
             turtleMotor.turtleMoveForward()
         end
         
-        RunServerInstructions()
+        commApi.RunServerInstructions()
         saveData()
     end
 end
