@@ -340,5 +340,4 @@ function turtleMoveDirection(direction)
     turtleMoveForward()
 end
 
-startupReload()
 

@@ -1,4 +1,4 @@
-local VERSION = "7.3r"
+local VERSION = "7.4r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -81,7 +81,7 @@ tryLoadAPI("util/groundSkim.lua")
 tryLoadAPI("util/turtleBuild.lua")
 tryLoadAPI("util/instructionApi.lua")
 
-
+turtleMotor.startupReload()
 
 --_________________
 cPrint("Finished")
