@@ -1,4 +1,4 @@
-local VERSION = "6.25r"
+local VERSION = "6.26r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -119,7 +119,7 @@ function ScanUpRow()
     local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
 
     while math.floor(y + 0.25) < wallWanted do
-        RunServerInstructions()
+        commApi.RunServerInstructions()
         x, y, z = turtleMotor.getCoords()
         turtleBuild.buildDown()
         turtleBuild.buildForward()
@@ -134,7 +134,7 @@ function ScanDownRow()
 
     local continue = true
     while continue do
-        RunServerInstructions()
+        commApi.RunServerInstructions()
         if (not turtle.detectDown()) then
             turtleBuild.buildUp()
             turtleBuild.buildForward()
