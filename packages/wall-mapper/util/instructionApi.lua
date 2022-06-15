@@ -19,6 +19,11 @@ local function loadData()
    
     t = textutils.unserialize(f.readAll())
 end
+function WipeInstructions()
+    t.resumeInstructions = {}
+    t.direction = "up"
+    saveData()
+end
 function RunResumeInstructions()
     while #t.resumeInstructions > 0 do
         local instruction = t.resumeInstructions[1]

@@ -260,7 +260,7 @@ function setTurtleStatus(id, status)
 end
 
 function testTurtleDirection()
-
+    instructionApi.WipeInstructions()
     local sx, sy, sz = gps.locate(5)
     while (sx == nil or sy == nil or sz == nil) do
         commApi.SendRequest("STATUS HELP Gps Error!")
