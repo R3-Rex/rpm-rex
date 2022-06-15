@@ -38,10 +38,10 @@ function SetVersion(_VERSION)
 end
 
 function RunServerInstructions()
-    local ask = commApi.SendRequest("VERSION " .. VERSION)
+    local ask = SendRequest("VERSION " .. VERSION)
     local continue = (ask == "true");
     while continue do
-        local command = commApi.SendRequest("GET command")
+        local command = SendRequest("GET command")
         if (command == "false")then
             continue = false;
         else
