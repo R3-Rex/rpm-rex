@@ -1,4 +1,4 @@
-local VERSION = "0.5b"
+local VERSION = "0.6b"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -101,7 +101,7 @@ cPrint("")
 local inRange = true
 while inRange do
     local x, y, z = turtleMotor.getCoords()
-    local currentEnd = tonumber(commApi.SendRequest("CHUNK " .. x))
+    local currentEnd = tonumber(commApi.SendRequest("CHUNK " .. x)) - 2
     cPrint((currentEnd - x) .. " blocks from furthest back")
     if (currentEnd - x > 16) then
         turtleMotor.faceDirection("east")
