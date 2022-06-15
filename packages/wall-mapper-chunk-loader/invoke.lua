@@ -101,7 +101,7 @@ cPrint("")
 local inRange = true
 while inRange do
     local x, y, z = turtleMotor.getCoords()
-    local currentEnd = tonumber(commApi.SendRequest("CHUNK " .. x)) - 2
+    local currentEnd = tonumber(commApi.SendRequest("CHUNK " .. x)) - 8
     cPrint((currentEnd - x) .. " blocks from furthest back")
     if (currentEnd - x > 16) then
         turtleMotor.faceDirection("east")
