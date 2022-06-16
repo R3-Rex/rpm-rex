@@ -1,4 +1,4 @@
-local VERSION = "Chunk Loader 1.0R"
+local VERSION = "Chunk Loader 1.1R"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -105,7 +105,7 @@ local inRange = true
 while inRange do
     local x, y, z = turtleMotor.getCoords()
     commApi.RunServerInstructions()
-    local currentEnd = tonumber(commApi.SendRequest("CHUNK " .. x)) - 8
+    local currentEnd = tonumber(commApi.SendRequest("CHUNK " .. x)) - 2
     cPrint((currentEnd - x) .. " blocks from furthest back")
     if (currentEnd - x > 16) then
         turtleMotor.faceDirection("east")
