@@ -1,4 +1,4 @@
-local VERSION = "7.8b"
+local VERSION = "7.9b"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -37,19 +37,19 @@ function ScanUpRow()
     local x, y, z = turtleMotor.getCoords()
     local wallHeight = tonumber(commApi.SendRequest("GET height")) + 1
     local wallWanted = tonumber(commApi.SendRequest("GET wanted-height"))
-
+    print("Scanning up row from " .. y .. " to " .. wallWanted)
     while math.floor(y + 0.25) < wallWanted do
         commApi.RunServerInstructions()
         x, y, z = turtleMotor.getCoords()
         instructionApi.AddCommands({"b-down", "b-forward", "m-up"})
         instructionApi.RunResumeInstructions()
     end
-
+    print("Scan Up Complete")
     instructionApi.AddCommands({"b-down", "m-east", "m-east", "m-wall-height", "m-down", "b-forward", "m-down", "r-down"})
     instructionApi.RunResumeInstructions()
 end
 function ScanDownRow()
-
+    print("Scanning Down Row")
     local continue = true
     while continue do
         commApi.RunServerInstructions()
@@ -60,6 +60,7 @@ function ScanDownRow()
             continue = false
         end
     end
+    print("Scan Down Complete")
     instructionApi.AddCommands({"m-up", "b-down", "m-east", "b-backward", "m-down", "b-up", "m-east", "b-backward", "r-up"})
     instructionApi.RunResumeInstructions()
 end
