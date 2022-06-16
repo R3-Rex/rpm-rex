@@ -21,7 +21,6 @@ local function loadData()
 end
 function WipeInstructions()
     t.resumeInstructions = {}
-    t.direction = "up"
     saveData()
 end
 function RunResumeInstructions()
