@@ -1,4 +1,4 @@
-local VERSION = "8.4r"
+local VERSION = "Builder 8.6r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -72,15 +72,15 @@ os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
 --Apis Here
-tryLoadAPI("util/commApi.lua")
+tryLoadAPI("apis/commApi.lua")
 commApi.SetVersion(VERSION)
 commApi.RunServerInstructions()
-tryLoadAPI("util/inventoryApi.lua")
+tryLoadAPI("apis/inventoryApi.lua")
 inventoryApi.CheckResumeState()
-tryLoadAPI("util/turtleMotor.lua")
-tryLoadAPI("util/groundSkim.lua")
-tryLoadAPI("util/turtleBuild.lua")
-tryLoadAPI("util/instructionApi.lua")
+tryLoadAPI("apis/turtleMotor.lua")
+tryLoadAPI("apis/groundSkim.lua")
+tryLoadAPI("apis/turtleBuild.lua")
+tryLoadAPI("apis/instructionApi.lua")
 
 turtleMotor.startupReload()
 
