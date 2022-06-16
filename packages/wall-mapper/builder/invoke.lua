@@ -1,4 +1,4 @@
-local VERSION = "Builder 8.6r"
+local VERSION = "Builder 8.7r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()

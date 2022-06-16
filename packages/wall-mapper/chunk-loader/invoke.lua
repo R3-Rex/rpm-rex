@@ -1,4 +1,4 @@
-local VERSION = "Chunk Loader 0.8b"
+local VERSION = "Chunk Loader 0.9b"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
