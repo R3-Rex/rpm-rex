@@ -128,7 +128,7 @@ end
 loadData()
 function AddCommands(newCommands)
     for i = 1, #newCommands do
-        t.resumeInstructions[#t.resumeInstructions+1] = newCommands
+        t.resumeInstructions[#t.resumeInstructions+1] = newCommands[i]
     end
     saveData()
 end
