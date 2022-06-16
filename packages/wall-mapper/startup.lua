@@ -33,7 +33,8 @@ end
 
 function doRoutine()
     local status, err = pcall(invokeDoRoutine)
-    os.sleep(1)
+    print("Restarting in 5 seconds")
+    os.sleep(5)
     doRoutine()
 end
 
