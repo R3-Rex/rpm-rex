@@ -48,7 +48,21 @@ end
 
 local function PingServer()
     commApi.SendRequest("STATUS green")
-    commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
+    if (math.abs(t.x) < 2 or math.abs(t.y) < 2 or math.abs(t.z) < 2 ) then
+        commApi.SendRequest("STATUS HELP No Gps Coordinates")
+        local x, y, z = gps.locate(5)
+        while (x == nil or y == nil or z == nil) do
+            commApi.SendRequest("STATUS HELP Gps Error!")
+            os.sleep(5)
+            x, y, z = gps.locate(5)
+        end
+        x = math.floor(x + 0.5)
+        y = math.floor(y + 0.5)
+        z = math.floor(z + 0.5)
+        commApi.SendRequest("GPS " .. x .. " " .. y .. " " .. z)
+    else
+        commApi.SendRequest("GPS " .. t.x .. " " .. t.y .. " " .. t.z)
+    end
     commApi.SendRequest("FUEL " .. turtle.getFuelLevel())
     os.setComputerLabel("Rex Drone " .. os.getComputerID() .. " [" .. turtle.getFuelLevel() .. "]")
 end
