@@ -31,6 +31,7 @@ function RunResumeInstructions()
         for i = 2, #t.resumeInstructions do
             newInstructions[#newInstructions + 1] = t.resumeInstructions[i]
         end
+        print("Running [" .. instruction .. "] " .. #newInstructions .. " remain.")
         t.resumeInstructions = newInstructions
         if (instruction == "m-up")then
             turtleMotor.turtleMoveUp()
