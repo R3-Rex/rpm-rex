@@ -1,4 +1,4 @@
-local VERSION = "Chunk Loader 0.11b"
+local VERSION = "Chunk Loader 1.0R"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -104,6 +104,7 @@ cPrint("")
 local inRange = true
 while inRange do
     local x, y, z = turtleMotor.getCoords()
+    commApi.RunServerInstructions()
     local currentEnd = tonumber(commApi.SendRequest("CHUNK " .. x)) - 8
     cPrint((currentEnd - x) .. " blocks from furthest back")
     if (currentEnd - x > 16) then
