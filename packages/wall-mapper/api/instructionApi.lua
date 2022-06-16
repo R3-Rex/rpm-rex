@@ -109,7 +109,6 @@ local function RunInstruction(instruction)
     end
 end
 function WipeInstructions()
-    t.resumeInstructions = {}
     saveData()
 end
 function RunResumeInstructions()
