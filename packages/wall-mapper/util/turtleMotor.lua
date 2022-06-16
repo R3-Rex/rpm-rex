@@ -146,6 +146,11 @@ function setTurtleGPS()
         os.sleep(5)
         x, y, z = gps.locate(5)
     end
+    if (t.x == nil or t.y == nil or t.z == nil) then
+        t.x = 0
+        t.y = 0
+        t.z = 0
+    end
     local changed = 0
     if (t.x ~= x) then
         changed = math.max(math.abs(t.x - x), changed)
