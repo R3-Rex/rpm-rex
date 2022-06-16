@@ -1,4 +1,4 @@
-local VERSION = "Chunk Loader 0.10b"
+local VERSION = "Chunk Loader 0.11b"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -89,8 +89,7 @@ tryLoadAPI("apis/groundSkim.lua")
 tryLoadAPI("apis/turtleBuild.lua")
 tryLoadAPI("apis/instructionApi.lua")
 
-
-
+turtleMotor.startupReload()
 
 --_________________
 cPrint("Finished")
