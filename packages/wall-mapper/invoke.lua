@@ -1,4 +1,4 @@
-local VERSION = "7.11b"
+local VERSION = "8.0r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
