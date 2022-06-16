@@ -11,7 +11,6 @@ local function loadData()
         f = fs.open(path, "r")
     else
         t.direction = "up"
-        
         t.resumeInstructions = {}
         saveData()
         f = fs.open(path, "r")
@@ -125,13 +124,7 @@ function RunResumeInstructions()
         saveData()
     end
 end
-function AddCommandsBeta(newCommands)
-    for i = #t.resumeInstructions, 1, -1 do
-        t.resumeInstructions[i + 1] = t.resumeInstructions[i]
-    end
-    t.resumeInstructions[1] = newCommands
-    saveData()
-end
+
 loadData()
 function AddCommands(newCommands)
     for i = 1, #newCommands do
