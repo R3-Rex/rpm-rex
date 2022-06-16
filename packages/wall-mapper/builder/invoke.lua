@@ -1,4 +1,4 @@
-local VERSION = "Builder 8.7r"
+local VERSION = "Builder 8.8r"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -67,7 +67,7 @@ end
 
 
 
-cPrint("Starting Drone v" .. VERSION, colors.lime)
+cPrint("Starting Drone \"" .. VERSION .. "\"", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")

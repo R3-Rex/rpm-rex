@@ -1,4 +1,4 @@
-local VERSION = "Chunk Loader 0.9b"
+local VERSION = "Chunk Loader 0.10b"
 --For Graphical "Beauty"
 w, h = term.getSize()
 term.clear()
@@ -74,7 +74,7 @@ end
 
 
 
-cPrint("Starting Drone v" .. VERSION, colors.lime)
+cPrint("Starting Drone \"" .. VERSION .. "\"", colors.lime)
 os.sleep(1)
 cPrint(dividerDashes)
 cPrint("Loading Apis")
@@ -96,7 +96,6 @@ tryLoadAPI("apis/instructionApi.lua")
 cPrint("Finished")
 cPrint(dividerDashes)
 
-shell.run("delete config/turtleInfo.cfg")
 cPrint("Startup sequence complete!", colors.green)
 cPrint("")
 
