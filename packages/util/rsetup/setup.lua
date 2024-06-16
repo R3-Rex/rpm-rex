@@ -149,7 +149,7 @@ end
 loadData()
 function runAsk(i)
     local v, massage = pcall(askField(i))
-    if !v then
+    if not v then
         error(message)
     end
     if v then
