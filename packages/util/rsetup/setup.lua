@@ -148,7 +148,9 @@ function askField(index)
 end
 loadData()
 function runAsk(i)
-    local v, massage = pcall(askField(i))
+    local v, massage = pcall(function()
+            askField(i))
+    end)
     if not v then
         error(message)
     end
