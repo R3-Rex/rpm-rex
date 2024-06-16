@@ -21,6 +21,17 @@ local function genID(metadata)
     end
     return metadata.name
 end
+local function stripIDdmg(str)
+    -- yikes
+    while true do
+        char = string.sub(str,#str,#str)
+        if tonumber(char) then
+            str = string.su(str,1,#str-1)
+        else
+            return str
+        end
+    end
+end
 
 local debugList = {}
 
@@ -117,7 +128,13 @@ end
 
 local function updateContents(networkID)
     --Create list with item names rebuilt
-    local rawList = chests[networkID].list();
+    local ok,rawList = pcall(function()
+        return chests[networkID].list();
+    end)
+    if not ok then
+        rawList = {}
+        --debug("Error updating list for " .. networkID)
+    end
     local newList = {}
     for i,v in pairs(rawList) do
         
@@ -137,11 +154,16 @@ local function updateContents(networkID)
 end
 
 local function getChestType(id)
+    if config.chests and config.chests[id] then
+        return config.chests[id]
+    end
     local markerItem = readChestItem(id, chests[id].capacity)
     if unmanagedChests[id] then
         return "unmanaged"
     elseif markerItem then
-        return config.markers[genID(markerItem)] or genID(markerItem)
+        return config.markers[genID(markerItem)] or genID(markerItem) .. tostring(markerItem.damage)
+    elseif config.markers["empty"] then
+        return config.markers["empty"]
     else
         return "empty"
     end
@@ -183,7 +205,10 @@ local function indexAllChests(recheckCapacity)
                 chests[networkID].capacity = oldCapacity
             end
             if not chests[networkID].capacity or recheckCapacity then
-                chests[networkID].capacity = chests[networkID].size()
+                ok,err = pcall(function()
+                    return chests[networkID].size()
+                end)
+                chests[networkID].capacity = tonumber(err) or 27
             end
             if (quickScanChests[networkID] == nil) then
                 quickScanChests[networkID] = false
@@ -204,6 +229,9 @@ end
 
 
 local function placeInChest(fromChestID,fromSlot,chestID,count)
+    if count <= 0 then
+        return 0
+    end
     if fullChests[chestID] then
         return 0
     end
@@ -436,6 +464,7 @@ local function storageRoutine()
         checkYield()
         -- Misc chest reallocation
         startTimer("MISC CHEST REALLOCATION")
+        if cycle % 5 == 0 then
         for i,v in pairs(chests) do
             if v.type == "misc" then
                 if type(v.contents) == "table" then
@@ -448,6 +477,7 @@ local function storageRoutine()
                     end
                 end
             end
+        end
         end
         stopTimer("MISC CHEST REALLOCATION")
         checkYield()
@@ -488,7 +518,12 @@ local function storageRoutine()
                 if chests[chestId] and resourceCount[resource] then
                     local targetAmount = resourceCount[resource]/#resourceChests[resource]
                     if not maxCountCache[resource] then
-                        maxCountCache[resource] = chests[chestId].getItemMeta(chests[chestId].capacity).maxCount
+                        ok,maxCountCache[resource] = pcall(function()
+                            return chests[chestId].getItemMeta(chests[chestId].capacity).maxCount
+                        end)
+                        if not ok then
+                            maxCountCache[resource] = 1
+                        end
                     end
                     if targetAmount > ((chests[chestId].capacity-1)*maxCountCache[resource]) then
                         targetAmount = ((chests[chestId].capacity-1)*maxCountCache[resource])
@@ -505,7 +540,9 @@ local function storageRoutine()
                     if fromChestAmount < 0 then
                         for i=1,chests[fromChestId].capacity-1 do
                             if readChestItem(fromChestId,i) then
-                                amountToFill = amountToFill - chests[fromChestId].pushItems(peripheral.getName(chests[toChestId]),i,amountToFill)
+                                if amountToFill >= 1 then
+                                    amountToFill = amountToFill - chests[fromChestId].pushItems(peripheral.getName(chests[toChestId]),i,amountToFill)
+                                end
                                 if amountToFill <= 0.5 then
                                     break
                                 end
@@ -531,27 +568,28 @@ local function storageTotalsRoutine()
     while true do
         startTimer("STORAGE TOTALS")
         lastTime = os.epoch("utc")
-        storageTotals = {}
-        storageTotals.unallocated = unallocated;
-        storageTotals.totalAllocated = totalAllocated
-        storageTotals.available = available
-        storageTotals.times = times
-        storageTotals.debug = debugList
+        newStorageTotals = {}
+        newStorageTotals.unallocated = unallocated;
+        newStorageTotals.totalAllocated = totalAllocated
+        newStorageTotals.available = available
+        newStorageTotals.times = times
+        newStorageTotals.debug = debugList
         for i,v in pairs(chests) do
             if v.contents then
                 for k,z in pairs(v.contents) do
                     if k ~= v.capacity then
                         local name = getDisplayName(genID(z))
                         if type(z) == "table" and name then
-                            if not storageTotals[name] then
-                                storageTotals[name] = 0
+                            if not newStorageTotals[name] then
+                                newStorageTotals[name] = 0
                             end
-                            storageTotals[name] = storageTotals[name] + z.count
+                            newStorageTotals[name] = newStorageTotals[name] + z.count
                         end
                     end
                 end
             end
         end
+        storageTotals = newStorageTotals
         stopTimer("STORAGE TOTALS")
         os.sleep(1)
     end
