@@ -144,7 +144,6 @@ function askField(index)
         end
         currentValue = tonumber(currentValue)
     end
-    end
     setupData[field["variable"]] = currentValue
 end
 loadData()
